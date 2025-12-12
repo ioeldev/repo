@@ -1,0 +1,611 @@
+[
+    {
+        "name": "BTC",
+        "pair": "BTCUSDT",
+        "price": "97564.02",
+        "change": "-1.86%",
+        "volume": "28971.77492927"
+    },
+    {
+        "name": "ETH",
+        "pair": "ETHUSDT",
+        "price": "3666.15",
+        "change": "-6.01%",
+        "volume": "623232.50107"
+    },
+    {
+        "name": "MOVE",
+        "pair": "MOVEUSDT",
+        "price": "0.7409",
+        "change": "9.11%",
+        "volume": "650813448.4"
+    },
+    {
+        "name": "PEPE",
+        "pair": "PEPEUSDT",
+        "price": "0.00002457",
+        "change": "-8.55%",
+        "volume": "18710183731321"
+    },
+    {
+        "name": "XRP",
+        "pair": "XRPUSDT",
+        "price": "2.17",
+        "change": "-10.71%",
+        "volume": "195814655.5"
+    },
+    {
+        "name": "DOGE",
+        "pair": "DOGEUSDT",
+        "price": "0.39632",
+        "change": "-10.19%",
+        "volume": "991437973.93"
+    },
+    {
+        "name": "SOL",
+        "pair": "SOLUSDT",
+        "price": "215.07",
+        "change": "-6.27%",
+        "volume": "1072916.49"
+    },
+    {
+        "name": "SUPRA",
+        "pair": "SUPRAUSDT",
+        "price": "0.041836",
+        "change": "-30.47%",
+        "volume": "3701333086.91"
+    },
+    {
+        "name": "MX",
+        "pair": "MXUSDT",
+        "price": "3.6801",
+        "change": "-4.06%",
+        "volume": "29158311.95"
+    },
+    {
+        "name": "ADA",
+        "pair": "ADAUSDT",
+        "price": "1.003",
+        "change": "-11.32%",
+        "volume": "101561260.68"
+    },
+    {
+        "name": "TRX",
+        "pair": "TRXUSDT",
+        "price": "0.2659",
+        "change": "-10.92%",
+        "volume": "320913853.81"
+    },
+    {
+        "name": "KAS",
+        "pair": "KASUSDT",
+        "price": "0.159117",
+        "change": "-10.81%",
+        "volume": "486327900.11"
+    },
+    {
+        "name": "SUI",
+        "pair": "SUIUSDT",
+        "price": "3.8245",
+        "change": "-4.85%",
+        "volume": "20194273.37"
+    },
+    {
+        "name": "ENA",
+        "pair": "ENAUSDT",
+        "price": "0.9485",
+        "change": "-3.63%",
+        "volume": "77271525.57"
+    },
+    {
+        "name": "HBAR",
+        "pair": "HBARUSDT",
+        "price": "0.2849",
+        "change": "-7.89%",
+        "volume": "245535660.65"
+    },
+    {
+        "name": "ONDO",
+        "pair": "ONDOUSDT",
+        "price": "1.63206",
+        "change": "0.02%",
+        "volume": "39451687.35"
+    },
+    {
+        "name": "LTC",
+        "pair": "LTCUSDT",
+        "price": "110.31",
+        "change": "-11.92%",
+        "volume": "574845.4612"
+    },
+    {
+        "name": "SHIB",
+        "pair": "SHIBUSDT",
+        "price": "0.00002652",
+        "change": "-12.35%",
+        "volume": "2389378065567"
+    },
+    {
+        "name": "TAO",
+        "pair": "TAOUSDT",
+        "price": "569.48",
+        "change": "-14.65%",
+        "volume": "101526"
+    },
+    {
+        "name": "LINK",
+        "pair": "LINKUSDT",
+        "price": "22.47",
+        "change": "-11.15%",
+        "volume": "2505705.33"
+    },
+    {
+        "name": "NEAR",
+        "pair": "NEARUSDT",
+        "price": "6.425",
+        "change": "-10.91%",
+        "volume": "7766664.12"
+    },
+    {
+        "name": "BABYDOGE",
+        "pair": "BABYDOGEUSDT",
+        "price": "0.0000000052944",
+        "change": "-8.81%",
+        "volume": "9178903168003565"
+    },
+    {
+        "name": "OBOT",
+        "pair": "OBOTUSDT",
+        "price": "0.01716",
+        "change": "-17.38%",
+        "volume": "2697254532.3"
+    },
+    {
+        "name": "ETC",
+        "pair": "ETCUSDT",
+        "price": "30.28",
+        "change": "-13.18%",
+        "volume": "1293184.295"
+    },
+    {
+        "name": "USDC",
+        "pair": "USDCUSDT",
+        "price": "0.9995",
+        "change": "-0.04%",
+        "volume": "33022039.66"
+    },
+    {
+        "name": "ARB",
+        "pair": "ARBUSDT",
+        "price": "0.9592",
+        "change": "-11.64%",
+        "volume": "33776025.2"
+    },
+    {
+        "name": "DOT",
+        "pair": "DOTUSDT",
+        "price": "8.348",
+        "change": "-13.58%",
+        "volume": "3866369.72"
+    },
+    {
+        "name": "ETHFI",
+        "pair": "ETHFIUSDT",
+        "price": "2.383",
+        "change": "-14.71%",
+        "volume": "12332073.47"
+    },
+    {
+        "name": "APT",
+        "pair": "APTUSDT",
+        "price": "11.44",
+        "change": "-15%",
+        "volume": "2316694.59"
+    },
+    {
+        "name": "CRV",
+        "pair": "CRVUSDT",
+        "price": "1.1628",
+        "change": "5.51%",
+        "volume": "22428882.841"
+    },
+    {
+        "name": "JASMY",
+        "pair": "JASMYUSDT",
+        "price": "0.04027",
+        "change": "-10.07%",
+        "volume": "613502757.08"
+    },
+    {
+        "name": "FTM",
+        "pair": "FTMUSDT",
+        "price": "1.1544",
+        "change": "-6.7%",
+        "volume": "20814679.29"
+    },
+    {
+        "name": "BONK",
+        "pair": "BONKUSDT",
+        "price": "0.00003647",
+        "change": "-16.41%",
+        "volume": "657793138343"
+    },
+    {
+        "name": "FLOKI",
+        "pair": "FLOKIUSDT",
+        "price": "0.00022436",
+        "change": "-15.52%",
+        "volume": "102194582122"
+    },
+    {
+        "name": "FIL",
+        "pair": "FILUSDT",
+        "price": "6.186",
+        "change": "-14.03%",
+        "volume": "3606230.068"
+    },
+    {
+        "name": "BOME",
+        "pair": "BOMEUSDT",
+        "price": "0.007871",
+        "change": "-20.51%",
+        "volume": "2831649833.18"
+    },
+    {
+        "name": "GOAT",
+        "pair": "GOATUSDT",
+        "price": "0.56132",
+        "change": "-21.29%",
+        "volume": "39443829.94"
+    },
+    {
+        "name": "XLM",
+        "pair": "XLMUSDT",
+        "price": "0.4021",
+        "change": "-12.73%",
+        "volume": "54112395.05"
+    },
+    {
+        "name": "WIF",
+        "pair": "WIFUSDT",
+        "price": "2.865",
+        "change": "-17.71%",
+        "volume": "7536137.25"
+    },
+    {
+        "name": "BCH",
+        "pair": "BCHUSDT",
+        "price": "522.3",
+        "change": "-14.2%",
+        "volume": "41083.98479"
+    },
+    {
+        "name": "XMR",
+        "pair": "XMRUSDT",
+        "price": "175.35",
+        "change": "-12.1%",
+        "volume": "122287.782"
+    },
+    {
+        "name": "OP",
+        "pair": "OPUSDT",
+        "price": "2.209",
+        "change": "-11.99%",
+        "volume": "9509772.19"
+    },
+    {
+        "name": "BAN",
+        "pair": "BANUSDT",
+        "price": "0.08769",
+        "change": "-32.08%",
+        "volume": "231974821.19"
+    },
+    {
+        "name": "TIA",
+        "pair": "TIAUSDT",
+        "price": "6.672",
+        "change": "-12.9%",
+        "volume": "2963516.71"
+    },
+    {
+        "name": "ME",
+        "pair": "MEUSDT",
+        "price": "4.955",
+        "change": "395.5%",
+        "volume": "3978824.92"
+    },
+    {
+        "name": "ALGO",
+        "pair": "ALGOUSDT",
+        "price": "4.955",
+        "change": "395.5%",
+        "volume": "3978824.92"
+    },
+    {
+        "name": "MAJOR",
+        "pair": "MAJORUSDT",
+        "price": "0.809",
+        "change": "-25.64%",
+        "volume": "22840180.36"
+    },
+    {
+        "name": "ORDI",
+        "pair": "ORDIUSDT",
+        "price": "34.1",
+        "change": "-24.87%",
+        "volume": "540644.82"
+    },
+    {
+        "name": "XION",
+        "pair": "XIONUSDT",
+        "price": "5.327",
+        "change": "-4.84%",
+        "volume": "3444353.26"
+    },
+    {
+        "name": "WLD",
+        "pair": "WLDUSDT",
+        "price": "2.857",
+        "change": "-17.35%",
+        "volume": "6385494.33"
+    },
+    {
+        "name": "BNB",
+        "pair": "BNBUSDT",
+        "price": "683.3",
+        "change": "-5.86%",
+        "volume": "26376.76"
+    },
+    {
+        "name": "ETH",
+        "pair": "ETHBTC",
+        "price": "0.037562",
+        "change": "-4.29%",
+        "volume": "176.948"
+    },
+    {
+        "name": "BDX",
+        "pair": "BDXBTC",
+        "price": "0.0000007967",
+        "change": "1.54%",
+        "volume": "7675438"
+    },
+    {
+        "name": "SOL",
+        "pair": "SOLBTC",
+        "price": "0.00221184",
+        "change": "-4.43%",
+        "volume": "1588.97"
+    },
+    {
+        "name": "XRP",
+        "pair": "XRPBTC",
+        "price": "0.000022291",
+        "change": "-8.91%",
+        "volume": "87660.64"
+    },
+    {
+        "name": "ADA",
+        "pair": "ADABTC",
+        "price": "0.000010301",
+        "change": "-9.57%",
+        "volume": "179821.557"
+    },
+    {
+        "name": "LTC",
+        "pair": "LTCBTC",
+        "price": "0.00113",
+        "change": "-10.28%",
+        "volume": "662.361"
+    },
+    {
+        "name": "XLM",
+        "pair": "XLMBTC",
+        "price": "0.000004141",
+        "change": "-10.52%",
+        "volume": "155856.277"
+    },
+    {
+        "name": "TRX",
+        "pair": "TRXBTC",
+        "price": "0.00000273",
+        "change": "-9.42%",
+        "volume": "166155.571"
+    },
+    {
+        "name": "MX",
+        "pair": "MXBTC",
+        "price": "0.00003772",
+        "change": "-2.17%",
+        "volume": "9346.84"
+    },
+    {
+        "name": "METFI",
+        "pair": "METFIBTC",
+        "price": "0.00000171",
+        "change": "-2.06%",
+        "volume": "193311.36"
+    },
+    {
+        "name": "RIF",
+        "pair": "RIFBTC",
+        "price": "0.000001234",
+        "change": "-16.73%",
+        "volume": "248478.79"
+    },
+    {
+        "name": "BCH",
+        "pair": "BCHBTC",
+        "price": "0.005361",
+        "change": "-12.55%",
+        "volume": "43.123"
+    },
+    {
+        "name": "DOT",
+        "pair": "DOTBTC",
+        "price": "0.0000859",
+        "change": "-11.98%",
+        "volume": "2596.403"
+    },
+    {
+        "name": "EOS",
+        "pair": "EOSBTC",
+        "price": "0.00001045",
+        "change": "-15.15%",
+        "volume": "19590.108"
+    },
+    {
+        "name": "DASH",
+        "pair": "DASHBTC",
+        "price": "0.0004577",
+        "change": "-16.12%",
+        "volume": "440.699"
+    },
+    {
+        "name": "ETC",
+        "pair": "ETCBTC",
+        "price": "0.0003103",
+        "change": "-11.44%",
+        "volume": "647.28"
+    },
+    {
+        "name": "HIVE",
+        "pair": "HIVEBTC",
+        "price": "0.000003425",
+        "change": "-20.57%",
+        "volume": "57745.55"
+    },
+    {
+        "name": "PCX",
+        "pair": "PCXBTC",
+        "price": "0.0000020135",
+        "change": "-7.92%",
+        "volume": "89655.18"
+    },
+    {
+        "name": "SENSO",
+        "pair": "SENSOBTC",
+        "price": "0.0000003797",
+        "change": "-4.57%",
+        "volume": "473650.85"
+    },
+    {
+        "name": "ATOM",
+        "pair": "ATOMBTC",
+        "price": "0.00008108",
+        "change": "-14.76%",
+        "volume": "2151.98"
+    },
+    {
+        "name": "ANKR",
+        "pair": "ANKRBTC",
+        "price": "0.0000004423",
+        "change": "-13.3%",
+        "volume": "376192.8824"
+    },
+    {
+        "name": "KSM",
+        "pair": "KSMBTC",
+        "price": "0.0003595",
+        "change": "-14.72%",
+        "volume": "455.34"
+    },
+    {
+        "name": "ONT",
+        "pair": "ONTBTC",
+        "price": "0.000002748",
+        "change": "-14.79%",
+        "volume": "53577.77"
+    },
+    {
+        "name": "SNT",
+        "pair": "SNTBTC",
+        "price": "0.0000005416",
+        "change": "-17.04%",
+        "volume": "270266.95"
+    },
+    {
+        "name": "NEO",
+        "pair": "NEOBTC",
+        "price": "0.0001704",
+        "change": "-13.32%",
+        "volume": "825.157"
+    },
+    {
+        "name": "QTUM",
+        "pair": "QTUMBTC",
+        "price": "0.0000396",
+        "change": "-13.8%",
+        "volume": "3447.881"
+    },
+    {
+        "name": "DEXE",
+        "pair": "DEXEBTC",
+        "price": "0.00009639",
+        "change": "-9.93%",
+        "volume": "1416.48"
+    },
+    {
+        "name": "LBTC",
+        "pair": "LBTCBTC",
+        "price": "0.000002943",
+        "change": "1.97%",
+        "volume": "45357.14"
+    },
+    {
+        "name": "OMG",
+        "pair": "OMGBTC",
+        "price": "0.000004619",
+        "change": "-14.88%",
+        "volume": "28450.36"
+    },
+    {
+        "name": "ELF",
+        "pair": "ELFBTC",
+        "price": "0.0000049619",
+        "change": "-11.57%",
+        "volume": "26176.89"
+    },
+    {
+        "name": "IRIS",
+        "pair": "IRISBTC",
+        "price": "0.00000007058",
+        "change": "-21.46%",
+        "volume": "1734884.83"
+    },
+    {
+        "name": "BADGER",
+        "pair": "BADGERBTC",
+        "price": "0.00003628",
+        "change": "-17.03%",
+        "volume": "3347.14"
+    },
+    {
+        "name": "NWC",
+        "pair": "NWCBTC",
+        "price": "0.000001041",
+        "change": "-7.31%",
+        "volume": "60322.69"
+    },
+    {
+        "name": "SDAO",
+        "pair": "SDAOBTC",
+        "price": "0.000003132",
+        "change": "-19.29%",
+        "volume": "19836.13"
+    },
+    {
+        "name": "STRM",
+        "pair": "STRMBTC",
+        "price": "0.000000007222",
+        "change": "0.68%",
+        "volume": "8139099.562"
+    },
+    {
+        "name": "BAX",
+        "pair": "BAXBTC",
+        "price": "0.000000001285",
+        "change": "0%",
+        "volume": "18552113"
+    }
+]

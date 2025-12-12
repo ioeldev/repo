@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "CommonJS",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "preserveConstEnums": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictNullChecks": false,
+        "typeRoots": [],
+        "resolveJsonModule": true,
+        "outDir": "dist",
+        "rootDir": "./",
+        "baseUrl": ".",
+        "allowJs": true,
+        "sourceMap": true
+    },
+    // "include": ["src/**/*"],
+    "ts-node": {
+        "transpileOnly": true
+    }
+}

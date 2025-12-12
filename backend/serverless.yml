@@ -1,0 +1,59 @@
+app: inter-brok-backend
+service: inter-brok
+frameworkVersion: "3"
+useDotenv: true
+provider:
+    name: aws
+    stage: '${opt:stage, "dev"}'
+    runtime: nodejs20.x
+    environment:
+    iam:
+        role:
+            statements:
+                - Effect: Allow
+                  Resource: "*"
+                  Action:
+                      - "lambda:InvokeFunction"
+                      - "lambda:UpdateFunctionConfiguration"
+                      - "lambda:GetFunction"
+                      - "lambda:listAliases"
+                      - "lambda:listVersionsByFunction"
+                      - "lambda:deleteFunction"
+functions:
+    api:
+        handler: src/index.server
+        events:
+            - http:
+                  path: /
+                  method: ANY
+                  cors: true
+            - http:
+                  path: /{any+}
+                  method: ANY
+                  cors: true
+        memorySize: 256
+        timeout: 15
+
+    robotsRewards:
+        handler: src/lambdas/robots_rewards/index.handler
+        events:
+            - schedule: cron(0 23 * * ? *) # Run daily at 11 PM
+        memorySize: 256
+        timeout: 10
+
+    emailSender:
+        handler: src/lambdas/email_sender/index.handler
+        memorySize: 256
+        timeout: 15
+package:
+    patterns:
+        - '!./node_modules/.pnpm/@aws-sdk/**'
+        - '!./node_modules/.pnpm/aws-sdk/**'
+        - '!./node_modules/@aws-sdk/**'
+        - '!./node_modules/aws-sdk/*'
+plugins:
+    - serverless-plugin-typescript
+    - serverless-dotenv-plugin
+custom:
+    serverlessPluginTypescript:
+        tsConfigFileLocation: ./tsconfig.json

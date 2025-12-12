@@ -1,0 +1,85 @@
+import React, { createContext, useEffect, useState } from "react";
+import { Convert } from "easy-currencies";
+import { getPriceDecimals } from "@/utils/formatPrice";
+
+export type Currency = "USD" | "EUR";
+
+export interface CurrencyContextType {
+    currency: Currency;
+    setCurrency: (currency: Currency) => void;
+    exchangeRate: number;
+    isLoading: boolean;
+    convertAmount: (amount: number, fromCurrency?: Currency) => number;
+    formatAmount: (amount: number, fromCurrency?: Currency) => string;
+}
+
+const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
+
+export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [currency, setCurrency] = useState<Currency>(() => {
+        const stored = localStorage.getItem("preferred_currency");
+        return (stored as Currency) || "EUR";
+    });
+    const [exchangeRate, setExchangeRate] = useState<number>(1);
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Fetch exchange rate when component mounts or currency changes
+    useEffect(() => {
+        const fetchExchangeRate = async () => {
+            try {
+                setIsLoading(true);
+                // Convert 1 USD to the target currency
+                const rate = await Convert(1).from("USD").to(currency);
+                setExchangeRate(rate);
+            } catch (error) {
+                console.error("Failed to fetch exchange rate:", error);
+                // Fallback rates
+                setExchangeRate(currency === "EUR" ? 0.92 : 1);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchExchangeRate();
+    }, [currency]);
+
+    const handleSetCurrency = (newCurrency: Currency) => {
+        setCurrency(newCurrency);
+        localStorage.setItem("preferred_currency", newCurrency);
+    };
+
+    const convertAmount = (amount: number, fromCurrency: Currency = "USD"): number => {
+        if (fromCurrency === currency) return amount;
+        if (fromCurrency === "USD" && currency === "EUR") return amount * exchangeRate;
+        if (fromCurrency === "EUR" && currency === "USD") return amount / exchangeRate;
+        return amount;
+    };
+
+    const formatAmount = (amount: number, fromCurrency: Currency = "USD"): string => {
+        const converted = convertAmount(amount, fromCurrency);
+        const symbol = currency === "EUR" ? "€" : "$";
+        const decimals = getPriceDecimals(converted);
+        return `${symbol}${converted.toLocaleString("en-US", {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+        })}`;
+    };
+
+    return (
+        <CurrencyContext.Provider
+            value={{
+                currency,
+                setCurrency: handleSetCurrency,
+                exchangeRate,
+                isLoading,
+                convertAmount,
+                formatAmount,
+            }}
+        >
+            {children}
+        </CurrencyContext.Provider>
+    );
+};
+
+// Export context for use in custom hooks
+export { CurrencyContext };
