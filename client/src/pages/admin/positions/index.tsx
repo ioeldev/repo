@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { AdminPositionsTable } from "@/components/admin/positions/AdminPositionsTable";
 import {
     useAdminPositions,
@@ -9,6 +10,7 @@ import { usePairs } from "@/hooks/usePairs";
 import type { PaginationState, SortingState, ColumnFiltersState } from "@tanstack/react-table";
 
 export default function AdminPositions() {
+    const { t } = useTranslation();
     // Fetch initial pairs data for current prices
     const { pairs, isLoading: isPairsLoading } = usePairs();
     const [pagination, setPagination] = useState<PaginationState>({
@@ -85,8 +87,8 @@ export default function AdminPositions() {
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold">Liste des positions</h1>
-                    <p className="text-sm text-muted-foreground">Gérez toutes les positions des utilisateurs</p>
+                    <h1 className="text-2xl font-bold">{t("admin.pages.positions.title")}</h1>
+                    <p className="text-sm text-muted-foreground">{t("admin.pages.positions.description")}</p>
                 </div>
             </div>
 

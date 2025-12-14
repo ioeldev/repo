@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Dialog,
     DialogContent,
@@ -34,6 +35,7 @@ export function TransferDialog({
     btcPrice = 0,
     eurPrice = 1,
 }: TransferDialogProps) {
+    const { t } = useTranslation();
     const [source, setSource] = useState<Symbol>("USDT");
     const [destination, setDestination] = useState<Symbol>("BTC");
     const [amount, setAmount] = useState(0);
@@ -84,12 +86,12 @@ export function TransferDialog({
         if (!user || amount <= 0) return;
 
         if (source === destination) {
-            alert("La source et la destination doivent être différentes");
+            alert(t('admin.transfer.errors.differentRequired'));
             return;
         }
 
         if (amount > maxBalance) {
-            alert(`Solde insuffisant. Disponible: ${maxBalance.toFixed(8)} ${source}`);
+            alert(t('admin.transfer.errors.insufficientBalance', { amount: `${maxBalance.toFixed(8)} ${source}` }));
             return;
         }
 
@@ -141,8 +143,8 @@ export function TransferDialog({
             setAmount(0);
             onOpenChange(false);
         } catch (error) {
-            console.error("Conversion échouée:", error);
-            alert("Impossible d'effectuer la conversion");
+            console.error(t('admin.transfer.errors.failed'), error);
+            alert(t('admin.transfer.errors.error'));
         } finally {
             setIsSubmitting(false);
         }
@@ -172,9 +174,9 @@ export function TransferDialog({
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle>Conversion entre comptes</DialogTitle>
+                    <DialogTitle>{t('admin.transfer.title')}</DialogTitle>
                     <DialogDescription>
-                        Convertir des fonds pour {user.first_name} {user.last_name}
+                        {t('admin.transfer.description', { name: `${user.first_name} ${user.last_name}` })}
                     </DialogDescription>
                 </DialogHeader>
 
@@ -182,10 +184,10 @@ export function TransferDialog({
                     <div className="grid gap-4">
                         {/* Source */}
                         <div className="grid gap-2">
-                            <Label htmlFor="source">Source</Label>
+                            <Label htmlFor="source">{t('admin.transfer.source')}</Label>
                             <Select value={source} onValueChange={handleSourceChange}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Sélectionner la source" />
+                                    <SelectValue placeholder={t('admin.transfer.selectSource')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="BTC">Bitcoin (BTC)</SelectItem>
@@ -196,20 +198,13 @@ export function TransferDialog({
                                 </SelectContent>
                             </Select>
                             <p className="text-sm text-muted-foreground">
-                                Solde disponible: {maxBalance.toFixed(8)}{" "}
-                                {source === "INVEST"
-                                    ? "€"
-                                    : source === "BTC"
-                                    ? " BTC"
-                                    : source === "EUR"
-                                    ? " EUR"
-                                    : " USDT"}
+                                {t('admin.transfer.availableBalance', { amount: `${maxBalance.toFixed(8)} ${source === "INVEST" ? "€" : source === "BTC" ? "BTC" : source === "EUR" ? "EUR" : "USDT"}` })}
                             </p>
                         </div>
 
                         {/* Amount */}
                         <div className="grid gap-2">
-                            <Label htmlFor="amount">Montant à transférer</Label>
+                            <Label htmlFor="amount">{t('admin.transfer.amountToTransfer')}</Label>
                             <Input
                                 id="amount"
                                 type="number"
@@ -224,9 +219,9 @@ export function TransferDialog({
                         {/* Slider */}
                         <div className="grid gap-2">
                             <div className="flex items-center justify-between">
-                                <Label>Montant (slider)</Label>
+                                <Label>{t('admin.transfer.amountSlider')}</Label>
                                 <Button type="button" variant="outline" size="sm" onClick={() => setAmount(maxBalance)}>
-                                    Max
+                                    {t('admin.transfer.max')}
                                 </Button>
                             </div>
                             <Slider
@@ -241,10 +236,10 @@ export function TransferDialog({
 
                         {/* Destination */}
                         <div className="grid gap-2">
-                            <Label htmlFor="destination">Destination</Label>
+                            <Label htmlFor="destination">{t('admin.transfer.destination')}</Label>
                             <Select value={destination} onValueChange={handleDestinationChange}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Sélectionner la destination" />
+                                    <SelectValue placeholder={t('admin.transfer.selectDestination')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="BTC">Bitcoin (BTC)</SelectItem>
@@ -260,15 +255,7 @@ export function TransferDialog({
                         {amount > 0 && source !== destination && (
                             <div className="rounded-md bg-muted p-3">
                                 <p className="text-sm">
-                                    Environ <span className="font-medium">{estimatedAmount.toFixed(8)}</span>{" "}
-                                    {destination === "INVEST"
-                                        ? "€"
-                                        : destination === "BTC"
-                                        ? "BTC"
-                                        : destination === "EUR"
-                                        ? "EUR"
-                                        : "USDT"}{" "}
-                                    seront transférés
+                                    {t('admin.transfer.estimatedTransfer', { amount: `${estimatedAmount.toFixed(8)} ${destination === "INVEST" ? "€" : destination === "BTC" ? "BTC" : destination === "EUR" ? "EUR" : "USDT"}`, currency: destination === "INVEST" ? "€" : destination === "BTC" ? "BTC" : destination === "EUR" ? "EUR" : "USDT" })}
                                 </p>
                             </div>
                         )}
@@ -281,10 +268,10 @@ export function TransferDialog({
                             onClick={() => onOpenChange(false)}
                             disabled={isSubmitting}
                         >
-                            Annuler
+                            {t('admin.transfer.cancel')}
                         </Button>
                         <Button type="submit" disabled={isSubmitting || amount <= 0}>
-                            {isSubmitting ? "Conversion..." : "Confirmer"}
+                            {isSubmitting ? t('admin.transfer.converting') : t('admin.transfer.submit')}
                         </Button>
                     </DialogFooter>
                 </form>

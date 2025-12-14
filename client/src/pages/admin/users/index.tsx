@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { UsersTable } from "@/components/admin/users/UsersTable";
 import { CreateUserDialog } from "@/components/admin/users/CreateUserDialog";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ export default function AdminUsers() {
   const { users, isLoading, refetch } = useUsers();
   const { pairs } = usePairs();
   const { eurPrice } = useCurrency();
+  const { t } = useTranslation();
   const [createUserDialogOpen, setCreateUserDialogOpen] = useState(false);
 
   // Get BTC price from pairs API
@@ -21,13 +23,13 @@ export default function AdminUsers() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Liste des clients</h1>
+          <h1 className="text-2xl font-bold">{t("admin.pages.users.title")}</h1>
           <p className="text-sm text-muted-foreground">
-            Gérez tous les utilisateurs de la plateforme
+            {t("admin.pages.users.description")}
           </p>
         </div>
         <Button size="sm" onClick={() => setCreateUserDialogOpen(true)}>
-          Créer un utilisateur
+          {t("admin.pages.users.createButton")}
         </Button>
       </div>
 

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Label } from "../ui/label";
@@ -8,10 +9,13 @@ interface PositionToggleProps {
     label?: string;
 }
 
-export function PositionToggle({ value, onChange, label = "Position" }: PositionToggleProps) {
+export function PositionToggle({ value, onChange, label }: PositionToggleProps) {
+    const { t } = useTranslation();
+    const displayLabel = label || t("user.trading.position");
+
     return (
         <div className="space-y-2">
-            <Label className="text-[9px] lg:text-xs text-muted-foreground uppercase lg:uppercase">{label}</Label>
+            <Label className="text-[9px] lg:text-xs text-muted-foreground uppercase lg:uppercase">{displayLabel}</Label>
             <div className="relative grid grid-cols-2 gap-2 border rounded-lg p-1 overflow-hidden transition-colors duration-200">
                 {/* Sliding background "switch" effect */}
                 <span
@@ -32,7 +36,7 @@ export function PositionToggle({ value, onChange, label = "Position" }: Position
                     )}
                     onClick={() => onChange("long")}
                 >
-                    Long
+                    {t("user.trading.long")}
                 </Button>
                 <Button
                     className={cn(
@@ -41,7 +45,7 @@ export function PositionToggle({ value, onChange, label = "Position" }: Position
                     )}
                     onClick={() => onChange("short")}
                 >
-                    Short
+                    {t("user.trading.short")}
                 </Button>
             </div>
         </div>

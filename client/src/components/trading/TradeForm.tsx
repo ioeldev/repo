@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { AdjustLeverageDialog } from "./AdjustLeverageDialog";
 import { PositionToggle } from "./PositionToggle";
 import { ValueInput } from "./ValueInput";
@@ -10,6 +11,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, Loader2 } from "lucide-react";
 
 export function TradeForm() {
+    const { t } = useTranslation();
     const {
         state,
         setLeverageDialogOpen,
@@ -65,7 +67,11 @@ export function TradeForm() {
 
         createPosition(payload, {
             onSuccess: () => {
-                setSuccessMessage(`Position ${state.positionType === "long" ? "long" : "short"} created successfully!`);
+                setSuccessMessage(
+                    t("user.trading.positionCreated", {
+                        type: state.positionType === "long" ? t("user.trading.long") : t("user.trading.short"),
+                    })
+                );
                 setReverseConfirmed(false);
                 // Clear success message after 3 seconds
                 setTimeout(() => setSuccessMessage(null), 3000);
@@ -87,7 +93,7 @@ export function TradeForm() {
                 <div className="space-y-2 lg:space-y-2">
                     <div className="grid grid-cols-2 gap-2">
                         <Button variant="ghost" disabled size="sm">
-                            Isolated Margin
+                            {t("user.trading.isolatedMargin")}
                         </Button>
                         <Button onClick={() => setLeverageDialogOpen(true)} size="sm">
                             {state.leverage}x
@@ -131,7 +137,7 @@ export function TradeForm() {
                             onClick={() => setOrderValue(maxOrderValue)}
                             className="text-xs text-muted-foreground hover:text-primary transition-colors cursor-pointer"
                         >
-                            Available: ${availableBalance.toFixed(2)}
+                            {t("user.trading.available")} ${availableBalance.toFixed(2)}
                             {currentPrice > 0 && ` (${(availableBalance / currentPrice).toFixed(6)})`}
                         </button>
                     </div>
@@ -141,21 +147,23 @@ export function TradeForm() {
                 {/* Order Details */}
                 <div className="flex flex-col gap-2 text-xs">
                     <div className="flex justify-between">
-                        <span className="text-muted-foreground">Order Value</span>
+                        <span className="text-muted-foreground">{t("user.trading.orderValue")}</span>
                         <span className="font-medium">${state.orderValue.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
-                        <span className="text-muted-foreground">Margin Required</span>
+                        <span className="text-muted-foreground">{t("user.trading.marginRequired")}</span>
                         <span className="font-medium">${marginRequired.toFixed(2)}</span>
                     </div>
                     {currentPrice > 0 && (
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">Position Size ({state.leverage}x)</span>
+                            <span className="text-muted-foreground">
+                                {t("user.trading.positionSize")} ({state.leverage}x)
+                            </span>
                             <span className="font-medium">{positionSize.toFixed(6)}</span>
                         </div>
                     )}
                     <div className="flex justify-between">
-                        <span className="text-muted-foreground">Liquidation Price</span>
+                        <span className="text-muted-foreground">{t("user.trading.liquidationPrice")}</span>
                         <span className="font-medium">
                             {liquidationPrice ? `$${liquidationPrice.toFixed(2)}` : "None"}
                         </span>
@@ -171,9 +179,10 @@ export function TradeForm() {
                     <Alert className="bg-yellow-500/10 border-yellow-500/50">
                         <AlertCircle className="h-4 w-4 text-yellow-500" />
                         <AlertDescription className="text-yellow-500 text-xs">
-                            You have an existing open position for {selectedPair?.pair} with {existingPosition.leverage}
-                            x leverage. Please use the same leverage ({existingPosition.leverage}x) to create a new
-                            position.
+                            {t("user.trading.leverageMismatch", {
+                                pair: selectedPair?.pair,
+                                leverage: existingPosition.leverage,
+                            })}
                         </AlertDescription>
                     </Alert>
                 )}
@@ -183,7 +192,7 @@ export function TradeForm() {
                     <Alert className="bg-red-500/10 border-red-500/50">
                         <AlertCircle className="h-4 w-4 text-red-500" />
                         <AlertDescription className="text-red-500 text-xs">
-                            {createError instanceof Error ? createError.message : "Failed to create position"}
+                            {createError instanceof Error ? createError.message : t("user.trading.failedToCreate")}
                         </AlertDescription>
                     </Alert>
                 )}
@@ -200,7 +209,7 @@ export function TradeForm() {
                     <Alert className="bg-yellow-500/10 border-yellow-500/50">
                         <AlertCircle className="h-4 w-4 text-yellow-500" />
                         <AlertDescription className="text-yellow-500 text-xs">
-                            Position reversal confirmed. Click "Place Order" again to proceed.
+                            {t("user.trading.reversalConfirmed")}
                         </AlertDescription>
                     </Alert>
                 )}
@@ -214,7 +223,7 @@ export function TradeForm() {
                     {isCreating ? (
                         <>
                             <Loader2 className="h-4 w-4 animate-spin" />
-                            Creating...
+                            {t("user.trading.creating")}
                         </>
                     ) : (
                         `${state.positionType === "long" ? "BUY / LONG" : "SELL / SHORT"}`

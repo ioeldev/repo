@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef, useEffect, memo } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronDown, Search } from "lucide-react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { usePairs } from "@/hooks/usePairs";
@@ -46,6 +47,7 @@ const MarketItem = memo(({ pair }: { pair: Pair }) => {
 });
 
 export function MarketSelector() {
+    const { t } = useTranslation();
     const { pairs, isLoading } = usePairs();
     const { selectedPair, setSelectedPair } = useTradingContext();
     const [desktopSearch, setDesktopSearch] = useState("");
@@ -148,7 +150,7 @@ export function MarketSelector() {
     if (isLoading || !selectedPair) {
         return (
             <div className="w-full h-16 lg:h-16 bg-card border-b border-border flex items-center justify-center">
-                <span className="text-sm text-muted-foreground">Loading markets...</span>
+                <span className="text-sm text-muted-foreground">{t("user.trading.loadingMarkets")}</span>
             </div>
         );
     }
@@ -184,7 +186,7 @@ export function MarketSelector() {
                                 <div className="relative">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                     <Input
-                                        placeholder="Search markets..."
+                                        placeholder={t("user.trading.searchMarkets")}
                                         value={desktopSearch}
                                         onChange={(e) => setDesktopSearch(e.target.value)}
                                         className="pl-9"
@@ -312,21 +314,23 @@ export function MarketSelector() {
                 {/* Additional market stats */}
                 <div className="flex items-center gap-6 text-sm">
                     <div className="flex flex-col">
-                        <span className="text-muted-foreground text-xs">24h High</span>
+                        <span className="text-muted-foreground text-xs">{t("user.trading.high24h")}</span>
                         <span className="font-semibold text-foreground">
                             ${displayHigh > 0 ? formatPrice(displayHigh.toString()) : "--"}
                         </span>
                     </div>
 
                     <div className="flex flex-col">
-                        <span className="text-muted-foreground text-xs">24h Low</span>
+                        <span className="text-muted-foreground text-xs">{t("user.trading.low24h")}</span>
                         <span className="font-semibold text-foreground">
                             ${displayLow > 0 ? formatPrice(displayLow.toString()) : "--"}
                         </span>
                     </div>
 
                     <div className="flex flex-col">
-                        <span className="text-muted-foreground text-xs">24h Volume ({selectedPair.name})</span>
+                        <span className="text-muted-foreground text-xs">
+                            {t("user.trading.volume24h")} ({selectedPair.name})
+                        </span>
                         <span className="font-semibold text-foreground">
                             {displayVolume.toLocaleString(undefined, {
                                 maximumFractionDigits: 2,
@@ -374,7 +378,7 @@ export function MarketSelector() {
                     </DrawerTrigger>
                     <DrawerContent>
                         <DrawerHeader>
-                            <DrawerTitle>Select Market</DrawerTitle>
+                            <DrawerTitle>{t("user.trading.selectMarket")}</DrawerTitle>
                         </DrawerHeader>
 
                         {/* Search Input */}
@@ -382,7 +386,7 @@ export function MarketSelector() {
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                 <Input
-                                    placeholder="Search markets..."
+                                    placeholder={t("user.trading.searchMarkets")}
                                     value={mobileSearch}
                                     onChange={(e) => setMobileSearch(e.target.value)}
                                     className="pl-9"
@@ -497,7 +501,9 @@ export function MarketSelector() {
                                     )}
                                 </>
                             ) : (
-                                <div className="py-6 text-center text-sm text-muted-foreground">No markets found</div>
+                                <div className="py-6 text-center text-sm text-muted-foreground">
+                                    {t("user.trading.noMarketsFound")}
+                                </div>
                             )}
                         </div>
                     </DrawerContent>

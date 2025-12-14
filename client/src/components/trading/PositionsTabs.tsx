@@ -1,19 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePositions } from "@/hooks/usePositions";
 import { usePositionPnL } from "@/hooks/usePositionPnL";
 import { PositionsTableOptimized } from "@/components/positions/PositionsTableOptimized";
 
 export function PositionsTabs() {
+    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState<"positions" | "position-history">("positions");
 
     // Fetch open positions with close functionality
-    const { 
-        positions: openPositions, 
+    const {
+        positions: openPositions,
         isLoading: openLoading,
         closePositionAsync,
-        isClosing 
+        isClosing,
     } = usePositions(1, 50, "open");
 
     // Fetch closed positions (history)
@@ -29,8 +31,8 @@ export function PositionsTabs() {
                 position: {
                     _id: positionId,
                     exit_price: exitPrice,
-                    exit_time: new Date().toISOString()
-                }
+                    exit_time: new Date().toISOString(),
+                },
             });
 
             if (result.success) {
@@ -55,7 +57,7 @@ export function PositionsTabs() {
                             : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
-                    Positions
+                    {t("user.positionsTabs.positions")}
                 </button>
                 <button
                     onClick={() => setActiveTab("position-history")}
@@ -65,7 +67,7 @@ export function PositionsTabs() {
                             : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
-                    Position History
+                    {t("user.positionsTabs.positionHistory")}
                 </button>
             </div>
 
@@ -75,11 +77,11 @@ export function PositionsTabs() {
                     <div className="space-y-4">
                         <div>
                             <p className="text-xs font-semibold text-muted-foreground uppercase mb-4">
-                                Open Positions ({openPositions.length}) - Real-time P&L
+                                {t("user.positionsTabs.openPositions", { count: openPositions.length })}
                             </p>
-                            <PositionsTableOptimized 
-                                positions={openPositionsWithTickers} 
-                                isLoading={openLoading} 
+                            <PositionsTableOptimized
+                                positions={openPositionsWithTickers}
+                                isLoading={openLoading}
                                 showRealTimePnL={true}
                                 onClosePosition={handleClosePosition}
                                 isClosing={isClosing}
@@ -92,12 +94,12 @@ export function PositionsTabs() {
                     <div className="space-y-4">
                         <div>
                             <p className="text-xs font-semibold text-muted-foreground uppercase mb-4">
-                                Position History ({closedPositions.length})
+                                {t("user.positionsTabs.positionHistoryCount", { count: closedPositions.length })}
                             </p>
-                            <PositionsTableOptimized 
-                                positions={closedPositions} 
-                                isLoading={closedLoading} 
-                                showRealTimePnL={false} 
+                            <PositionsTableOptimized
+                                positions={closedPositions}
+                                isLoading={closedLoading}
+                                showRealTimePnL={false}
                             />
                         </div>
                     </div>

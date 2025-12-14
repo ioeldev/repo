@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePositions } from "@/hooks/usePositions";
 import { PositionsTable } from "@/components/positions/PositionsTable";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const POSITIONS_PER_PAGE = 10;
 
 export default function PositionsPage() {
+    const { t } = useTranslation();
     const [currentPage, setCurrentPage] = useState(1);
     const [statusFilter, setStatusFilter] = useState<"open" | "closed" | undefined>(undefined);
 
@@ -29,8 +31,8 @@ export default function PositionsPage() {
         <div className="space-y-6 p-6">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold text-foreground">Positions</h1>
-                <p className="text-muted-foreground mt-2">Manage and view all your trading positions</p>
+                <h1 className="text-3xl font-bold text-foreground">{t("user.pages.positions.title")}</h1>
+                <p className="text-muted-foreground mt-2">{t("user.pages.positions.description")}</p>
             </div>
 
             {/* Filters */}
@@ -42,7 +44,7 @@ export default function PositionsPage() {
                         setCurrentPage(1);
                     }}
                 >
-                    All Positions
+                    {t("user.pages.positions.all")}
                 </Button>
                 <Button
                     variant={statusFilter === "open" ? "default" : "outline"}
@@ -51,7 +53,7 @@ export default function PositionsPage() {
                         setCurrentPage(1);
                     }}
                 >
-                    Open
+                    {t("user.pages.positions.open")}
                 </Button>
                 <Button
                     variant={statusFilter === "closed" ? "default" : "outline"}
@@ -60,16 +62,19 @@ export default function PositionsPage() {
                         setCurrentPage(1);
                     }}
                 >
-                    Closed
+                    {t("user.pages.positions.closed")}
                 </Button>
             </div>
 
             <Card className="border-0">
                 <CardHeader>
-                    <CardTitle>Your Positions</CardTitle>
+                    <CardTitle>{t("user.pages.positions.yourPositions")}</CardTitle>
                     <CardDescription>
-                        Showing {positions.length > 0 ? (currentPage - 1) * POSITIONS_PER_PAGE + 1 : 0} to{" "}
-                        {Math.min(currentPage * POSITIONS_PER_PAGE, pagination.total)} of {pagination.total} positions
+                        {t("user.pages.positions.showing", {
+                            from: positions.length > 0 ? (currentPage - 1) * POSITIONS_PER_PAGE + 1 : 0,
+                            to: Math.min(currentPage * POSITIONS_PER_PAGE, pagination.total),
+                            total: pagination.total,
+                        })}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -80,7 +85,10 @@ export default function PositionsPage() {
                     {pagination.totalPages > 1 && (
                         <div className="flex items-center justify-between">
                             <div className="text-sm text-muted-foreground">
-                                Page {pagination.page} of {pagination.totalPages}
+                                {t("user.pages.positions.page", {
+                                    current: pagination.page,
+                                    total: pagination.totalPages,
+                                })}
                             </div>
                             <div className="flex gap-2">
                                 <Button
@@ -91,7 +99,7 @@ export default function PositionsPage() {
                                     className="gap-2"
                                 >
                                     <ChevronLeft className="h-4 w-4" />
-                                    Previous
+                                    {t("user.pages.positions.previous")}
                                 </Button>
                                 <Button
                                     variant="outline"
@@ -100,7 +108,7 @@ export default function PositionsPage() {
                                     disabled={currentPage >= pagination.totalPages || isLoading}
                                     className="gap-2"
                                 >
-                                    Next
+                                    {t("user.pages.positions.next")}
                                     <ChevronRight className="h-4 w-4" />
                                 </Button>
                             </div>

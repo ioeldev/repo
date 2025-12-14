@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, memo } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Dialog,
     DialogContent,
@@ -64,6 +65,7 @@ export function CreatePositionDialog({
     pairs = [],
     onCreatePosition,
 }: CreatePositionDialogProps) {
+    const { t } = useTranslation();
     const [selectedPair, setSelectedPair] = useState("");
     const [manualSymbol, setManualSymbol] = useState("");
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -328,9 +330,9 @@ export function CreatePositionDialog({
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Créer une position</DialogTitle>
+                    <DialogTitle>{t('admin.position.title')}</DialogTitle>
                     <DialogDescription>
-                        Créer une nouvelle position pour {user.first_name} {user.last_name}
+                        {t('admin.position.description', { name: `${user.first_name} ${user.last_name}` })}
                     </DialogDescription>
                 </DialogHeader>
 
@@ -347,20 +349,20 @@ export function CreatePositionDialog({
                         {/* Type & Base Currency */}
                         <div className="grid grid-cols-2 gap-4">
                             <div className="grid gap-2">
-                                <Label htmlFor="type">Type</Label>
+                                <Label htmlFor="type">{t('admin.position.type')}</Label>
                                 <Select value={type} onValueChange={(v) => setType(v as "buy" | "sell")}>
                                     <SelectTrigger>
                                         <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="buy">Achat (Long)</SelectItem>
-                                        <SelectItem value="sell">Vente (Short)</SelectItem>
+                                        <SelectItem value="buy">{t('admin.position.buyLong')}</SelectItem>
+                                        <SelectItem value="sell">{t('admin.position.sellShort')}</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="baseCurrency">Monnaie de base</Label>
+                                <Label htmlFor="baseCurrency">{t('admin.position.baseCurrency')}</Label>
                                 <Select value={baseCurrency} onValueChange={setBaseCurrency}>
                                     <SelectTrigger>
                                         <SelectValue />

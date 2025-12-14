@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePairs } from "@/hooks/usePairs";
 import { TradingProvider } from "@/contexts/TradingContext";
 import { TradingFormProvider } from "@/contexts/TradingFormContext";
@@ -9,6 +10,7 @@ import { Orderbook, TradeForm, TradingChart, MarketSelector, PositionsTabs } fro
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function TradingContent() {
+    const { t } = useTranslation();
     const { pairs } = usePairs();
     const [activeTopTab, setActiveTopTab] = useState<"trade" | "chart">("trade");
     const isMobile = useIsMobile();
@@ -16,7 +18,7 @@ export function TradingContent() {
     if (!pairs || pairs.length === 0) {
         return (
             <div className="w-full h-screen flex items-center justify-center">
-                <span className="text-sm text-muted-foreground">Loading trading data...</span>
+                <span className="text-sm text-muted-foreground">{t("user.pages.trading.loadingTradingData")}</span>
             </div>
         );
     }
@@ -77,7 +79,7 @@ export function TradingContent() {
                                                         : "text-muted-foreground hover:text-foreground"
                                                 }`}
                                             >
-                                                Trade
+                                                {t("user.pages.trading.trade")}
                                             </button>
                                             <button
                                                 onClick={() => setActiveTopTab("chart")}
@@ -87,7 +89,7 @@ export function TradingContent() {
                                                         : "text-muted-foreground hover:text-foreground"
                                                 }`}
                                             >
-                                                Chart
+                                                {t("user.pages.trading.chart")}
                                             </button>
                                         </div>
 

@@ -1,6 +1,7 @@
-import { Menu, DollarSign, Euro } from "lucide-react";
+import { Menu, DollarSign, Euro, Globe } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -38,12 +39,6 @@ interface MenuItem {
   badge?: string;
 }
 
-const menuItems: MenuItem[] = [
-  { title: "Dashboard", url: "/dashboard" },
-  { title: "Trading", url: "/trading" },
-  { title: "Positions", url: "/positions" },
-];
-
 export function UserHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -51,8 +46,20 @@ export function UserHeader() {
   const { fullName, email } = useUserInfo();
   const { theme, setTheme } = useTheme();
   const { currency, setCurrency } = useCurrency();
+  const { t, i18n } = useTranslation();
+
+  const menuItems: MenuItem[] = [
+    { title: t("navigation.dashboard"), url: "/dashboard" },
+    { title: t("navigation.trading"), url: "/trading" },
+    { title: t("navigation.positions"), url: "/positions" },
+  ];
 
   const isActive = (url: string) => location.pathname === url;
+
+  const handleLanguageChange = (lang: string) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
+  };
 
   return (
     <header className="bg-card/80 backdrop-blur-xl supports-backdrop-filter:bg-card/60 shadow-sm">
@@ -68,7 +75,7 @@ export function UserHeader() {
               <div className="w-8 h-8 rounded bg-primary flex items-center justify-center text-primary-foreground text-sm font-bold shadow-sm">
                 Y
               </div>
-              <span className="hidden sm:inline text-foreground">Yoda</span>
+              <span className="hidden sm:inline text-foreground">{t("navigation.yoda")}</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -146,34 +153,34 @@ export function UserHeader() {
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuLabel className="text-xs">
-                      Theme
+                      {t("header.theme")}
                     </DropdownMenuLabel>
                     <DropdownMenuCheckboxItem
                       checked={theme === "light"}
                       onCheckedChange={() => setTheme("light")}
                     >
                       <Sun className="mr-2 h-4 w-4" />
-                      Light
+                      {t("common.light")}
                     </DropdownMenuCheckboxItem>
                     <DropdownMenuCheckboxItem
                       checked={theme === "dark"}
                       onCheckedChange={() => setTheme("dark")}
                     >
                       <Moon className="mr-2 h-4 w-4" />
-                      Dark
+                      {t("common.dark")}
                     </DropdownMenuCheckboxItem>
                     <DropdownMenuCheckboxItem
                       checked={theme === "system"}
                       onCheckedChange={() => setTheme("system")}
                     >
                       <Monitor className="mr-2 h-4 w-4" />
-                      System
+                      {t("common.system")}
                     </DropdownMenuCheckboxItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuLabel className="text-xs">
-                      Currency
+                      {t("header.currency")}
                     </DropdownMenuLabel>
                     <DropdownMenuCheckboxItem
                       checked={currency === "USD"}
@@ -191,12 +198,32 @@ export function UserHeader() {
                     </DropdownMenuCheckboxItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuLabel className="text-xs">
+                      Language
+                    </DropdownMenuLabel>
+                    <DropdownMenuCheckboxItem
+                      checked={i18n.language === "fr"}
+                      onCheckedChange={() => handleLanguageChange("fr")}
+                    >
+                      <Globe className="mr-2 h-4 w-4" />
+                      Français
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem
+                      checked={i18n.language === "en"}
+                      onCheckedChange={() => handleLanguageChange("en")}
+                    >
+                      <Globe className="mr-2 h-4 w-4" />
+                      English
+                    </DropdownMenuCheckboxItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={logout}
                     className="cursor-pointer gap-2"
                   >
                     <LogOut className="h-4 w-4" />
-                    Log out
+                    {t("common.logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -267,7 +294,7 @@ export function UserHeader() {
                       )}
                     >
                       <Settings className="h-4 w-4" />
-                      Settings
+                      {t("common.settings")}
                     </Link>
                   </div>
 
@@ -276,7 +303,7 @@ export function UserHeader() {
                   {/* Mobile Theme Toggle */}
                   <div className="flex flex-col gap-2">
                     <p className="px-3 py-2 text-xs font-semibold text-muted">
-                      Theme
+                      {t("header.theme")}
                     </p>
                     <div className="flex flex-col gap-1 px-3">
                       <button
@@ -288,7 +315,7 @@ export function UserHeader() {
                         }`}
                       >
                         <Sun className="h-4 w-4" />
-                        Light
+                        {t("common.light")}
                       </button>
                       <button
                         onClick={() => setTheme("dark")}
@@ -299,7 +326,7 @@ export function UserHeader() {
                         }`}
                       >
                         <Moon className="h-4 w-4" />
-                        Dark
+                        {t("common.dark")}
                       </button>
                       <button
                         onClick={() => setTheme("system")}
@@ -310,7 +337,7 @@ export function UserHeader() {
                         }`}
                       >
                         <Monitor className="h-4 w-4" />
-                        System
+                        {t("common.system")}
                       </button>
                     </div>
                   </div>
@@ -320,7 +347,7 @@ export function UserHeader() {
                   {/* Mobile Currency Toggle */}
                   <div className="flex flex-col gap-2">
                     <p className="px-3 py-2 text-xs font-semibold text-muted">
-                      Currency
+                      {t("header.currency")}
                     </p>
                     <div className="flex flex-col gap-1 px-3">
                       <button
@@ -350,6 +377,39 @@ export function UserHeader() {
 
                   <div className="h-px bg-border" />
 
+                  {/* Mobile Language Toggle */}
+                  <div className="flex flex-col gap-2">
+                    <p className="px-3 py-2 text-xs font-semibold text-muted">
+                      Language
+                    </p>
+                    <div className="flex flex-col gap-1 px-3">
+                      <button
+                        onClick={() => handleLanguageChange("fr")}
+                        className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors ${
+                          i18n.language === "fr"
+                            ? "bg-primary/10 text-text-link"
+                            : "hover:text-text-link"
+                        }`}
+                      >
+                        <Globe className="h-4 w-4" />
+                        Français
+                      </button>
+                      <button
+                        onClick={() => handleLanguageChange("en")}
+                        className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors ${
+                          i18n.language === "en"
+                            ? "bg-primary/10 text-text-link"
+                            : "hover:text-text-link"
+                        }`}
+                      >
+                        <Globe className="h-4 w-4" />
+                        English
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-border" />
+
                   {/* Mobile Logout */}
                   <div className="flex flex-col gap-2">
                     <button
@@ -360,7 +420,7 @@ export function UserHeader() {
                       className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-destructive hover:bg-destructive/10"
                     >
                       <LogOut className="h-4 w-4" />
-                      Log out
+                      {t("common.logout")}
                     </button>
                   </div>
                 </div>

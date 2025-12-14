@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Dialog,
     DialogContent,
@@ -12,6 +13,7 @@ import { Button } from "../ui/button";
 import { useTradingForm } from "@/contexts/TradingFormContext";
 
 export function AdjustLeverageDialog({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) {
+    const { t } = useTranslation();
     const { state, setLeverage } = useTradingForm();
     const [leverage, setLeverageState] = useState([state.leverage]);
 
@@ -41,22 +43,22 @@ export function AdjustLeverageDialog({ open, setOpen }: { open: boolean; setOpen
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="sm:max-w-sm">
                 <DialogHeader>
-                    <DialogTitle>Adjust Leverage</DialogTitle>
-                    <DialogDescription>
-                        Changing the leverage will also affect all open positions and orders in the same market.
-                    </DialogDescription>
+                    <DialogTitle>{t("user.leverage.title")}</DialogTitle>
+                    <DialogDescription>{t("user.leverage.warning")}</DialogDescription>
                 </DialogHeader>
 
                 <div className="space-y-6 py-4">
                     {/* Leverage Display */}
                     <div className="flex flex-col items-center justify-center space-y-2">
                         <div className="text-5xl font-bold tracking-tight">{leverage[0]}x</div>
-                        <p className="text-sm text-muted-foreground">Current Leverage</p>
+                        <p className="text-sm text-muted-foreground">{t("user.leverage.current")}</p>
                     </div>
 
                     {/* Quick Select Buttons */}
                     <div className="space-y-2">
-                        <p className="text-xs font-medium text-muted-foreground uppercase">Quick Select</p>
+                        <p className="text-xs font-medium text-muted-foreground uppercase">
+                            {t("user.leverage.quickSelect")}
+                        </p>
                         <div className="grid grid-cols-3 gap-2">
                             {quickLeverageValues.map((value) => (
                                 <Button
@@ -87,18 +89,18 @@ export function AdjustLeverageDialog({ open, setOpen }: { open: boolean; setOpen
                             className="w-full"
                         />
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <span>Min</span>
-                            <span>Max</span>
+                            <span>{t("user.leverage.min")}</span>
+                            <span>{t("user.leverage.max")}</span>
                         </div>
                     </div>
                 </div>
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => setOpen(false)}>
-                        Cancel
+                        {t("common.cancel")}
                     </Button>
                     <Button onClick={handleConfirm} className="w-full sm:w-auto">
-                        Confirm
+                        {t("common.confirm")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

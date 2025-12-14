@@ -14,6 +14,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import { useLogout } from "@/hooks/useAuth";
 import { useTheme } from "@/components/theme-provider";
+import i18n from "@/i18n/config";
 
 export function NavUser({
     user,
@@ -27,6 +28,12 @@ export function NavUser({
     const { isMobile } = useSidebar();
     const logout = useLogout();
     const { theme, setTheme } = useTheme();
+
+
+    const handleLanguageChange = (lang: string) => {
+      i18n.changeLanguage(lang);
+      localStorage.setItem('language', lang);
+    };
 
     return (
         <SidebarMenu>
@@ -90,6 +97,22 @@ export function NavUser({
                             >
                                 <Monitor className="mr-2 h-4 w-4" />
                                 System
+                            </DropdownMenuCheckboxItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                            <DropdownMenuLabel className="text-xs">Language</DropdownMenuLabel>
+                            <DropdownMenuCheckboxItem
+                              checked={i18n.language === "fr"}
+                              onCheckedChange={() => handleLanguageChange("fr")}
+                            >
+                                Français
+                            </DropdownMenuCheckboxItem>
+                            <DropdownMenuCheckboxItem
+                                checked={i18n.language === "en"}
+                                onCheckedChange={() => handleLanguageChange("en")}
+                            >
+                                English
                             </DropdownMenuCheckboxItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />

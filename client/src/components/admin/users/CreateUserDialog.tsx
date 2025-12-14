@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,7 @@ interface CreateUserDialogProps {
 }
 
 export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) {
+    const { t } = useTranslation();
     const { isSuperAdmin } = useUserPermissions();
     const signup = useSignup();
 
@@ -77,36 +79,36 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Ajouter un client</DialogTitle>
+                    <DialogTitle>{t('admin.createUser.title')}</DialogTitle>
                     <DialogDescription>
-                        Créer un nouveau compte utilisateur
+                        {t('admin.createUser.description')}
                     </DialogDescription>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4 py-4">
                     {isSuperAdmin && (
                         <div className="grid gap-2">
-                            <Label htmlFor="role">Role</Label>
+                            <Label htmlFor="role">{t('admin.createUser.role')}</Label>
                             <Select
                                 value={formData.role}
                                 onValueChange={(value) => handleChange("role", value)}
                             >
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Role" />
+                                    <SelectValue placeholder={t('admin.createUser.selectRole')} />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="client">Client</SelectItem>
-                                    <SelectItem value="admin">Admin</SelectItem>
+                                    <SelectItem value="client">{t('admin.createUser.roleClient')}</SelectItem>
+                                    <SelectItem value="admin">{t('admin.createUser.roleAdmin')}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
                     )}
 
                     <div className="grid gap-2">
-                        <Label htmlFor="firstName">Prenom</Label>
+                        <Label htmlFor="firstName">{t('admin.createUser.firstName')}</Label>
                         <Input
                             id="firstName"
-                            placeholder="Prenom"
+                            placeholder={t('admin.createUser.firstName')}
                             value={formData.firstName}
                             onChange={(e) => handleChange("firstName", e.target.value)}
                             required
@@ -114,10 +116,10 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="lastName">Nom</Label>
+                        <Label htmlFor="lastName">{t('admin.createUser.lastName')}</Label>
                         <Input
                             id="lastName"
-                            placeholder="Nom"
+                            placeholder={t('admin.createUser.lastName')}
                             value={formData.lastName}
                             onChange={(e) => handleChange("lastName", e.target.value)}
                             required
@@ -125,10 +127,10 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="phone">Phone</Label>
+                        <Label htmlFor="phone">{t('admin.createUser.phone')}</Label>
                         <Input
                             id="phone"
-                            placeholder="Phone"
+                            placeholder={t('admin.createUser.phone')}
                             value={formData.phone}
                             onChange={(e) => handleChange("phone", e.target.value)}
                             required
@@ -136,11 +138,11 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">{t('admin.createUser.email')}</Label>
                         <Input
                             id="email"
                             type="email"
-                            placeholder="Email"
+                            placeholder={t('admin.createUser.email')}
                             value={formData.email}
                             onChange={(e) => handleChange("email", e.target.value)}
                             required
@@ -148,11 +150,11 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="password">Mot de passe</Label>
+                        <Label htmlFor="password">{t('admin.createUser.password')}</Label>
                         <Input
                             id="password"
                             type="password"
-                            placeholder="Mot de passe"
+                            placeholder={t('admin.createUser.password')}
                             value={formData.password}
                             onChange={(e) => handleChange("password", e.target.value)}
                             required
@@ -160,40 +162,40 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="address">Adresse</Label>
+                        <Label htmlFor="address">{t('admin.createUser.address')}</Label>
                         <Input
                             id="address"
-                            placeholder="Adresse"
+                            placeholder={t('admin.createUser.address')}
                             value={formData.address?.address || ""}
                             onChange={(e) => handleChange("address.address", e.target.value)}
                         />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="postal_code">Code postal</Label>
+                        <Label htmlFor="postal_code">{t('admin.createUser.postalCode')}</Label>
                         <Input
                             id="postal_code"
-                            placeholder="Code postal"
+                            placeholder={t('admin.createUser.postalCode')}
                             value={formData.address?.postal_code || ""}
                             onChange={(e) => handleChange("address.postal_code", e.target.value)}
                         />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="city">Ville</Label>
+                        <Label htmlFor="city">{t('admin.createUser.city')}</Label>
                         <Input
                             id="city"
-                            placeholder="Ville"
+                            placeholder={t('admin.createUser.city')}
                             value={formData.address?.city || ""}
                             onChange={(e) => handleChange("address.city", e.target.value)}
                         />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="country">Pays</Label>
+                        <Label htmlFor="country">{t('admin.createUser.country')}</Label>
                         <Input
                             id="country"
-                            placeholder="Pays"
+                            placeholder={t('admin.createUser.country')}
                             value={formData.address?.country || ""}
                             onChange={(e) => handleChange("address.country", e.target.value)}
                         />
@@ -206,10 +208,10 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
                             onClick={() => onOpenChange(false)}
                             disabled={signup.isPending}
                         >
-                            Annuler
+                            {t('admin.createUser.cancel')}
                         </Button>
                         <Button type="submit" disabled={signup.isPending}>
-                            {signup.isPending ? "Création..." : "Sign Up"}
+                            {signup.isPending ? t('admin.createUser.creating') : t('admin.createUser.submit')}
                         </Button>
                     </DialogFooter>
                 </form>

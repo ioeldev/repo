@@ -3,12 +3,14 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, X } from "lucide-react";
 import { useGetMe } from "@/hooks/useAuth";
 import { useIsImpersonating, useExitImpersonation } from "@/hooks/useImpersonation";
+import { useTranslation } from "react-i18next";
 
 export const ImpersonationBanner = () => {
     const isImpersonating = useIsImpersonating();
     const exitImpersonation = useExitImpersonation();
     const [impersonatedUser, setImpersonatedUser] = useState<any>(null);
     const { data: me } = useGetMe(true);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (isImpersonating && me?.data?.user) {
@@ -25,8 +27,8 @@ export const ImpersonationBanner = () => {
             <div className="flex items-center gap-2">
                 <AlertCircle className="h-5 w-5" />
                 <span className="font-medium">
-                    Impersonating: {impersonatedUser?.first_name} {impersonatedUser?.last_name} (
-                    {impersonatedUser?.email})
+                    {t("user.impersonation.impersonating")}: {impersonatedUser?.first_name}{" "}
+                    {impersonatedUser?.last_name} ({impersonatedUser?.email})
                 </span>
             </div>
             <Button
@@ -36,7 +38,7 @@ export const ImpersonationBanner = () => {
                 className="text-black hover:bg-yellow-600 flex items-center gap-1"
             >
                 <X className="h-4 w-4" />
-                Exit Impersonation
+                {t("user.impersonation.exitImpersonation")}
             </Button>
         </div>
     );

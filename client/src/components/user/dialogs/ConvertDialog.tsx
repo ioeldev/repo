@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
     Dialog,
     DialogContent,
@@ -28,13 +29,8 @@ interface ConvertDialogProps {
     eurPrice?: number;
 }
 
-export function ConvertDialog({
-    open,
-    onOpenChange,
-    user,
-    btcPrice = 0,
-    eurPrice = 1,
-}: ConvertDialogProps) {
+export function ConvertDialog({ open, onOpenChange, user, btcPrice = 0, eurPrice = 1 }: ConvertDialogProps) {
+    const { t } = useTranslation();
     const queryClient = useQueryClient();
     const [source, setSource] = useState<Symbol>("USDT");
     const [destination, setDestination] = useState<Symbol>("BTC");
@@ -93,16 +89,14 @@ export function ConvertDialog({
             return usersService.updateMe({ balances: newBalances });
         },
         onSuccess: () => {
-            toast.success("Conversion successful!");
+            toast.success(t("user.dialogs.convert.success"));
             setAmount(0);
             onOpenChange(false);
             // Invalidate user query to refresh data
             queryClient.invalidateQueries({ queryKey: ["me"] });
         },
         onError: (error: any) => {
-            toast.error(
-                error?.response?.data?.message || "Failed to convert"
-            );
+            toast.error(error?.response?.data?.message || t("user.dialogs.convert.error"));
         },
     });
 
@@ -111,12 +105,17 @@ export function ConvertDialog({
         if (!user || amount <= 0) return;
 
         if (source === destination) {
-            toast.error("Source and destination must be different");
+            toast.error(t("user.dialogs.convert.differentRequired"));
             return;
         }
 
         if (amount > maxBalance) {
-            toast.error(`Insufficient balance. Available: ${maxBalance.toFixed(8)} ${source}`);
+            toast.error(
+                t("user.dialogs.convert.insufficientBalance", {
+                    amount: maxBalance.toFixed(8),
+                    source,
+                })
+            );
             return;
         }
 
@@ -147,35 +146,33 @@ export function ConvertDialog({
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle>Convert Between Currencies</DialogTitle>
-                    <DialogDescription>
-                        Convert your funds between different currencies
-                    </DialogDescription>
+                    <DialogTitle>{t("user.dialogs.convert.title")}</DialogTitle>
+                    <DialogDescription>{t("user.dialogs.convert.description")}</DialogDescription>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4 py-4">
                     <div className="grid gap-4">
                         {/* Source */}
                         <div className="grid gap-2">
-                            <Label htmlFor="source">From</Label>
+                            <Label htmlFor="source">{t("user.dialogs.convert.from")}</Label>
                             <Select value={source} onValueChange={handleSourceChange}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select source currency" />
+                                    <SelectValue placeholder={t("user.dialogs.convert.selectSourceCurrency")} />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="BTC">Bitcoin (BTC)</SelectItem>
-                                    <SelectItem value="USDT">Tether (USDT)</SelectItem>
-                                    <SelectItem value="EUR">Euro (EUR)</SelectItem>
+                                    <SelectItem value="BTC">{t("user.dialogs.deposit.btc")}</SelectItem>
+                                    <SelectItem value="USDT">{t("user.dialogs.deposit.usdt")}</SelectItem>
+                                    <SelectItem value="EUR">{t("user.dialogs.deposit.eur")}</SelectItem>
                                 </SelectContent>
                             </Select>
                             <p className="text-sm text-muted-foreground">
-                                Available balance: {maxBalance.toFixed(8)} {source}
+                                {t("user.dialogs.withdraw.availableBalance")} {maxBalance.toFixed(8)} {source}
                             </p>
                         </div>
 
                         {/* Amount */}
                         <div className="grid gap-2">
-                            <Label htmlFor="amount">Amount to convert</Label>
+                            <Label htmlFor="amount">{t("user.dialogs.convert.amount")}</Label>
                             <Input
                                 id="amount"
                                 type="number"
@@ -190,14 +187,9 @@ export function ConvertDialog({
                         {/* Slider */}
                         <div className="grid gap-2">
                             <div className="flex items-center justify-between">
-                                <Label>Amount (slider)</Label>
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => setAmount(maxBalance)}
-                                >
-                                    Max
+                                <Label>{t("user.dialogs.withdraw.amountSlider")}</Label>
+                                <Button type="button" variant="outline" size="sm" onClick={() => setAmount(maxBalance)}>
+                                    {t("user.dialogs.withdraw.max")}
                                 </Button>
                             </div>
                             <Slider
@@ -212,15 +204,15 @@ export function ConvertDialog({
 
                         {/* Destination */}
                         <div className="grid gap-2">
-                            <Label htmlFor="destination">To</Label>
+                            <Label htmlFor="destination">{t("user.dialogs.convert.to")}</Label>
                             <Select value={destination} onValueChange={handleDestinationChange}>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select destination currency" />
+                                    <SelectValue placeholder={t("user.dialogs.convert.selectDestinationCurrency")} />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="BTC">Bitcoin (BTC)</SelectItem>
-                                    <SelectItem value="USDT">Tether (USDT)</SelectItem>
-                                    <SelectItem value="EUR">Euro (EUR)</SelectItem>
+                                    <SelectItem value="BTC">{t("user.dialogs.deposit.btc")}</SelectItem>
+                                    <SelectItem value="USDT">{t("user.dialogs.deposit.usdt")}</SelectItem>
+                                    <SelectItem value="EUR">{t("user.dialogs.deposit.eur")}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -229,9 +221,8 @@ export function ConvertDialog({
                         {amount > 0 && source !== destination && (
                             <div className="rounded-md bg-muted p-3">
                                 <p className="text-sm">
-                                    You will receive approximately{" "}
-                                    <span className="font-medium">{estimatedAmount.toFixed(8)}</span>{" "}
-                                    {destination}
+                                    {t("user.dialogs.convert.estimate")}{" "}
+                                    <span className="font-medium">{estimatedAmount.toFixed(8)}</span> {destination}
                                 </p>
                             </div>
                         )}
@@ -244,17 +235,15 @@ export function ConvertDialog({
                             onClick={() => onOpenChange(false)}
                             disabled={convertMutation.isPending}
                         >
-                            Cancel
+                            {t("common.cancel")}
                         </Button>
                         <Button
                             type="submit"
                             disabled={convertMutation.isPending || amount <= 0}
                             className="flex items-center gap-2"
                         >
-                            {convertMutation.isPending && (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                            )}
-                            Confirm Conversion
+                            {convertMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+                            {t("user.dialogs.convert.submit")}
                         </Button>
                     </DialogFooter>
                 </form>

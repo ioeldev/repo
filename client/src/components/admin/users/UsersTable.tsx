@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import {
     flexRender,
     getCoreRowModel,
@@ -69,6 +70,7 @@ export function UsersTable({
     onUserDeleted,
     onUserUpdated,
 }: UsersTableProps) {
+    const { t } = useTranslation();
     const [sorting, setSorting] = useState<SortingState>([]);
     const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
@@ -107,8 +109,8 @@ export function UsersTable({
             console.log("impersonationUrl", impersonationUrl);
             window.location.href = impersonationUrl;
         } catch (error) {
-            console.error("Échec de l'impersonnification:", error);
-            alert("Impossible de se connecter en tant que cet utilisateur");
+            console.error(t('admin.users.errors.impersonateFailed'), error);
+            alert(t('admin.users.errors.impersonateError'));
         }
     }, []);
 
@@ -127,8 +129,8 @@ export function UsersTable({
             setSelectedUser(null);
             onUserDeleted?.();
         } catch (error) {
-            console.error("Échec de la suppression:", error);
-            alert("Impossible de supprimer cet utilisateur");
+            console.error(t('admin.users.errors.deleteFailed'), error);
+            alert(t('admin.users.errors.deleteFailed'));
         } finally {
             setIsSubmitting(false);
         }
@@ -150,8 +152,8 @@ export function UsersTable({
             setSelectedUser(null);
             onUserUpdated?.();
         } catch (error) {
-            console.error("Échec de la mise à jour du risque:", error);
-            alert("Impossible de mettre à jour le niveau de risque");
+            console.error(t('admin.users.errors.riskUpdateFailed'), error);
+            alert(t('admin.users.errors.riskUpdateFailed'));
         } finally {
             setIsSubmitting(false);
         }
@@ -174,8 +176,8 @@ export function UsersTable({
             setCustomMessage("");
             onUserUpdated?.();
         } catch (error) {
-            console.error("Échec de la mise à jour du message:", error);
-            alert("Impossible de mettre à jour le message personnalisé");
+            console.error(t('admin.users.errors.messageFailed'), error);
+            alert(t('admin.users.errors.messageFailed'));
         } finally {
             setIsSubmitting(false);
         }
@@ -221,14 +223,14 @@ export function UsersTable({
                             table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
                         }
                         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                        aria-label="Tout sélectionner"
+                        aria-label={t('admin.users.selectAll')}
                     />
                 ),
                 cell: ({ row }) => (
                     <Checkbox
                         checked={row.getIsSelected()}
                         onCheckedChange={(value) => row.toggleSelected(!!value)}
-                        aria-label="Sélectionner la ligne"
+                        aria-label={t('admin.users.selectRow')}
                     />
                 ),
                 enableSorting: false,
@@ -245,7 +247,7 @@ export function UsersTable({
                             </Button>
                         </TooltipTrigger>
                         <TooltipContent side="top">
-                            Se connecter en tant que {row.original.first_name} {row.original.last_name}
+                            {t('admin.users.impersonate', { name: `${row.original.first_name} ${row.original.last_name}` })}
                         </TooltipContent>
                     </Tooltip>
                 ),
@@ -259,7 +261,7 @@ export function UsersTable({
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                         className="!px-0"
                     >
-                        Prénom
+                        {t('admin.users.firstName')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -273,7 +275,7 @@ export function UsersTable({
                         className="!px-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Nom
+                        {t('admin.users.lastName')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -287,7 +289,7 @@ export function UsersTable({
                         className="!px-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Email
+                        {t('admin.users.email')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -301,7 +303,7 @@ export function UsersTable({
                         className="!px-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Téléphone
+                        {t('admin.users.phone')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -319,7 +321,7 @@ export function UsersTable({
                         className="!px-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Solde USDT
+                        {t('admin.users.balanceUsdt')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -340,7 +342,7 @@ export function UsersTable({
                         className="!px-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Solde EUR
+                        {t('admin.users.balanceEur')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -361,7 +363,7 @@ export function UsersTable({
                         className="!px-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Solde BTC
+                        {t('admin.users.balanceBtc')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -378,7 +380,7 @@ export function UsersTable({
                         className="!px-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Solde Robot
+                        {t('admin.users.balanceRobot')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -392,7 +394,7 @@ export function UsersTable({
                         className="!px-0"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Solde Placements
+                        {t('admin.users.balancePlacements')}
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 ),
@@ -400,7 +402,7 @@ export function UsersTable({
             },
             {
                 id: "actions",
-                header: "Actions",
+                header: t('admin.users.actions'),
                 cell: ({ row }) => {
                     const user = row.original;
 
@@ -414,29 +416,29 @@ export function UsersTable({
                             <DropdownMenuContent align="end">
                                 <DropdownMenuItem onClick={() => handleOpenDepositDialog(user)}>
                                     <FileText className="mr-2 h-4 w-4" />
-                                    Depot
+                                    {t('admin.users.deposit')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => handleOpenCreatePositionDialog(user)}>
                                     <Plus className="mr-2 h-4 w-4" />
-                                    Créer une position
+                                    {t('admin.users.createPosition')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => handleOpenTransferDialog(user)}>
                                     <ArrowLeftRight className="mr-2 h-4 w-4" />
-                                    Convertir
+                                    {t('admin.users.convert')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => handleOpenRiskDialog(user)}>
                                     <AlertTriangle className="mr-2 h-4 w-4" />
-                                    Ajuster le risque
+                                    {t('admin.users.adjustRisk')}
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => handleOpenMessageDialog(user)}>
                                     <MessageSquare className="mr-2 h-4 w-4" />
-                                    Message personnalisé
+                                    {t('admin.users.customMessage')}
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={() => handleOpenDeleteDialog(user)} variant="destructive">
                                     <Trash2 className="mr-2 h-4 w-4" />
-                                    Supprimer
+                                    {t('admin.users.deleteUser')}
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -466,15 +468,14 @@ export function UsersTable({
             {selectedCount > 0 && (
                 <div className="flex items-center justify-between p-2 bg-muted rounded-md">
                     <span className="text-sm text-muted-foreground">
-                        {selectedCount} utilisateur{selectedCount > 1 ? "s" : ""} sélectionné
-                        {selectedCount > 1 ? "s" : ""}
+                        {t('admin.users.selectedCount', { count: selectedCount })}
                     </span>
                     <div className="flex gap-2">
                         <Button size="sm" variant="outline" onClick={() => setRowSelection({})}>
-                            Tout déselectionner
+                            {t('admin.users.deselectAll')}
                         </Button>
                         <Button size="sm" onClick={() => console.log("Mass transaction", selectedUserIds)}>
-                            Transaction en masse
+                            {t('admin.users.bulkTransaction')}
                         </Button>
                     </div>
                 </div>
@@ -499,7 +500,7 @@ export function UsersTable({
                         {isLoading ? (
                             <TableRow className="border-0">
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    Chargement des utilisateurs...
+                                    {t('admin.users.loading')}
                                 </TableCell>
                             </TableRow>
                         ) : table.getRowModel().rows?.length ? (
@@ -519,7 +520,7 @@ export function UsersTable({
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    Aucun utilisateur
+                                    {t('admin.users.noUsers')}
                                 </TableCell>
                             </TableRow>
                         )}
@@ -531,18 +532,17 @@ export function UsersTable({
             <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Supprimer l'utilisateur</DialogTitle>
+                        <DialogTitle>{t('admin.users.deleteDialog.title')}</DialogTitle>
                         <DialogDescription>
-                            Êtes-vous sûr de vouloir supprimer {selectedUser?.first_name} {selectedUser?.last_name} ?
-                            Cette action est irréversible.
+                            {t('admin.users.deleteDialog.description', { name: `${selectedUser?.first_name} ${selectedUser?.last_name}` })}
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
-                            Annuler
+                            {t('admin.users.deleteDialog.cancel')}
                         </Button>
                         <Button variant="destructive" onClick={handleConfirmDelete} disabled={isSubmitting}>
-                            {isSubmitting ? "Suppression..." : "Supprimer"}
+                            {isSubmitting ? t('admin.users.deleteDialog.deleting') : t('admin.users.deleteDialog.delete')}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
@@ -552,16 +552,15 @@ export function UsersTable({
             <Dialog open={riskDialogOpen} onOpenChange={setRiskDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Ajuster le niveau de risque</DialogTitle>
+                        <DialogTitle>{t('admin.users.riskDialog.title')}</DialogTitle>
                         <DialogDescription>
-                            Modifier le multiplicateur de risque pour {selectedUser?.first_name}{" "}
-                            {selectedUser?.last_name}
+                            {t('admin.users.riskDialog.description', { name: `${selectedUser?.first_name} ${selectedUser?.last_name}` })}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="risk-level" className="text-right">
-                                Multiplicateur
+                                {t('admin.users.riskDialog.multiplier')}
                             </Label>
                             <Input
                                 id="risk-level"
@@ -577,10 +576,10 @@ export function UsersTable({
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setRiskDialogOpen(false)}>
-                            Annuler
+                            {t('admin.users.riskDialog.cancel')}
                         </Button>
                         <Button onClick={handleConfirmRisk} disabled={isSubmitting}>
-                            {isSubmitting ? "Mise à jour..." : "Mettre à jour"}
+                            {isSubmitting ? t('admin.users.riskDialog.updating') : t('admin.users.riskDialog.update')}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
@@ -590,29 +589,29 @@ export function UsersTable({
             <Dialog open={messageDialogOpen} onOpenChange={setMessageDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Message personnalisé</DialogTitle>
+                        <DialogTitle>{t('admin.users.messageDialog.title')}</DialogTitle>
                         <DialogDescription>
-                            Définir un message personnalisé pour {selectedUser?.first_name} {selectedUser?.last_name}
+                            {t('admin.users.messageDialog.description', { name: `${selectedUser?.first_name} ${selectedUser?.last_name}` })}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="custom-message">Message</Label>
+                            <Label htmlFor="custom-message">{t('admin.users.messageDialog.message')}</Label>
                             <textarea
                                 id="custom-message"
                                 value={customMessage}
                                 onChange={(e) => setCustomMessage(e.target.value)}
                                 className="min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                placeholder="Entrez un message personnalisé..."
+                                placeholder={t('admin.users.messageDialog.placeholder')}
                             />
                         </div>
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setMessageDialogOpen(false)}>
-                            Annuler
+                            {t('admin.users.messageDialog.cancel')}
                         </Button>
                         <Button onClick={handleConfirmMessage} disabled={isSubmitting}>
-                            {isSubmitting ? "Enregistrement..." : "Enregistrer"}
+                            {isSubmitting ? t('admin.users.messageDialog.saving') : t('admin.users.messageDialog.save')}
                         </Button>
                     </DialogFooter>
                 </DialogContent>

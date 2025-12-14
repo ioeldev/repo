@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import {
   LayoutDashboard,
   Users,
@@ -20,48 +22,49 @@ import {
 import { NavUser } from "./NavUser";
 import { useGetMe, useIsAdmin } from "@/hooks/useAuth";
 
-// Define admin navigation items
-const adminNavItems: NavItem[] = [
-  {
-    title: "Users",
-    url: "/admin/users",
-    icon: Users,
-  },
-  {
-    title: "Positions",
-    url: "/admin/positions",
-    icon: TrendingUp,
-  },
-  {
-    title: "Dépôts & Retraits",
-    url: "/admin/deposits-withdraws",
-    icon: ArrowLeftRight,
-  },
-  {
-    title: "Robots",
-    url: "/admin/robots",
-    icon: Zap,
-  },
-  {
-    title: "Settings",
-    url: "/admin/settings",
-    icon: Settings,
-  },
-];
-
 export function AdminSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const { t } = useTranslation();
   const { data: me } = useGetMe();
   const isAdmin = useIsAdmin();
 
   const user = me?.data?.user;
 
+  // Define admin navigation items with translations
+  const adminNavItems: NavItem[] = useMemo(() => [
+    {
+      title: t("admin.sidebar.users"),
+      url: "/admin/users",
+      icon: Users,
+    },
+    {
+      title: t("admin.sidebar.positions"),
+      url: "/admin/positions",
+      icon: TrendingUp,
+    },
+    {
+      title: t("admin.sidebar.depositsWithdraws"),
+      url: "/admin/deposits-withdraws",
+      icon: ArrowLeftRight,
+    },
+    {
+      title: t("admin.sidebar.robots"),
+      url: "/admin/robots",
+      icon: Zap,
+    },
+    {
+      title: t("admin.sidebar.settings"),
+      url: "/admin/settings",
+      icon: Settings,
+    },
+  ], [t]);
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <AppBranding
-          name="Admin Panel"
+          name={t("admin.sidebar.adminPanel")}
           logo={LayoutDashboard}
           href={isAdmin ? "/admin/users" : "/"}
         />

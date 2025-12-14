@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import { Pie, PieChart } from "recharts";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -9,25 +10,30 @@ import { useNavigate } from "react-router";
 import { useDashboardSummary } from "@/hooks/useDashboardSummary";
 import { useCurrency } from "@/hooks/useCurrency";
 
-const chartConfig = {
-    trading: {
-        label: "Trading",
-        color: "var(--color-chart-1)",
-    },
-    robots: {
-        label: "Robots",
-        color: "var(--color-chart-2)",
-    },
-    invest: {
-        label: "Invest",
-        color: "var(--color-chart-3)",
-    },
-} satisfies ChartConfig;
-
 export function BalanceBreakdown() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { summary } = useDashboardSummary();
     const { formatAmount } = useCurrency();
+
+    const chartConfig = React.useMemo(
+        () =>
+            ({
+                trading: {
+                    label: t("user.pages.dashboard.trading"),
+                    color: "var(--color-chart-1)",
+                },
+                robots: {
+                    label: t("user.pages.dashboard.robots"),
+                    color: "var(--color-chart-2)",
+                },
+                invest: {
+                    label: t("user.pages.dashboard.investments"),
+                    color: "var(--color-chart-3)",
+                },
+            } satisfies ChartConfig),
+        [t]
+    );
 
     const chartData = React.useMemo(
         () =>
@@ -57,12 +63,14 @@ export function BalanceBreakdown() {
         <Card className="h-full flex flex-col">
             <CardHeader className="flex flex-col items-stretch border-b p-0">
                 <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-                    <CardTitle>Balance Breakdown</CardTitle>
-                    <CardDescription>Distribution across your accounts</CardDescription>
+                    <CardTitle>{t("user.pages.dashboard.balanceBreakdown.title")}</CardTitle>
+                    <CardDescription>{t("user.pages.dashboard.balanceBreakdown.description")}</CardDescription>
                 </div>
                 <div className="flex border-t">
                     <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-4 sm:px-8 sm:py-5">
-                        <span className="text-muted-foreground text-xs">Total Balance</span>
+                        <span className="text-muted-foreground text-xs">
+                            {t("user.pages.dashboard.balanceBreakdown.totalBalance")}
+                        </span>
                         <span className="text-lg leading-none font-bold sm:text-3xl">
                             {formatAmount(totalBalance, "EUR")}
                         </span>
@@ -113,16 +121,18 @@ export function BalanceBreakdown() {
                     </>
                 ) : (
                     <div className="text-center py-8">
-                        <p className="text-muted-foreground mb-4">No funds invested yet</p>
+                        <p className="text-muted-foreground mb-4">
+                            {t("user.pages.dashboard.balanceBreakdown.noFunds")}
+                        </p>
                         <Button onClick={() => navigate("/trading")} size="sm" className="mx-auto">
-                            Start Trading
+                            {t("user.pages.dashboard.balanceBreakdown.startTrading")}
                         </Button>
                     </div>
                 )}
             </CardContent>
             <CardFooter>
                 <Button variant="secondary" className="w-full mt-auto" onClick={() => navigate("/settings")}>
-                    Manage Accounts
+                    {t("user.pages.dashboard.balanceBreakdown.manageAccounts")}
                 </Button>
             </CardFooter>
         </Card>

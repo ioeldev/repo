@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,7 @@ interface DepositDialogProps {
 }
 
 export function DepositDialog({ open, onOpenChange, user, onDeposit }: DepositDialogProps) {
+    const { t } = useTranslation();
     const [amount, setAmount] = useState("");
     const [symbol, setSymbol] = useState("USDT");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,8 +37,8 @@ export function DepositDialog({ open, onOpenChange, user, onDeposit }: DepositDi
             setSymbol("USDT");
             onOpenChange(false);
         } catch (error) {
-            console.error("Dépôt échoué:", error);
-            alert("Impossible d'effectuer le dépôt");
+            console.error(t('admin.deposit.errors.failed'), error);
+            alert(t('admin.deposit.errors.error'));
         } finally {
             setIsSubmitting(false);
         }
@@ -48,16 +50,16 @@ export function DepositDialog({ open, onOpenChange, user, onDeposit }: DepositDi
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle>Dépôt</DialogTitle>
+                    <DialogTitle>{t('admin.deposit.title')}</DialogTitle>
                     <DialogDescription>
-                        Effectuer un dépôt pour {user.first_name} {user.last_name}
+                        {t('admin.deposit.description', { name: `${user.first_name} ${user.last_name}` })}
                     </DialogDescription>
                 </DialogHeader>
 
                 <div className="space-y-4 py-4">
                     {/* Current Balances */}
                     <div className="rounded-md border p-4 space-y-2">
-                        <p className="text-sm font-medium">Soldes actuels</p>
+                        <p className="text-sm font-medium">{t('admin.deposit.currentBalances')}</p>
                         <div className="grid grid-cols-2 gap-2 text-sm">
                             {user.balances.map((balance) => (
                                 <div key={balance.symbol} className="flex justify-between">
@@ -66,11 +68,11 @@ export function DepositDialog({ open, onOpenChange, user, onDeposit }: DepositDi
                                 </div>
                             ))}
                             <div className="flex justify-between">
-                                <span className="text-muted-foreground">Robot:</span>
+                                <span className="text-muted-foreground">{t('admin.deposit.robot')}</span>
                                 <span className="font-medium">{user.robots_balance?.toFixed(2) || "0.00"}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-muted-foreground">Invest:</span>
+                                <span className="text-muted-foreground">{t('admin.deposit.invest')}</span>
                                 <span className="font-medium">{user.invest_balance?.toFixed(2) || "0.00"}</span>
                             </div>
                         </div>
@@ -80,7 +82,7 @@ export function DepositDialog({ open, onOpenChange, user, onDeposit }: DepositDi
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="grid gap-4">
                             <div className="grid gap-2">
-                                <Label htmlFor="amount">Montant</Label>
+                                <Label htmlFor="amount">{t('admin.deposit.amount')}</Label>
                                 <Input
                                     id="amount"
                                     type="number"
@@ -94,10 +96,10 @@ export function DepositDialog({ open, onOpenChange, user, onDeposit }: DepositDi
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="symbol">Symbole</Label>
+                                <Label htmlFor="symbol">{t('admin.deposit.symbol')}</Label>
                                 <Select value={symbol} onValueChange={setSymbol}>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Sélectionner le symbole" />
+                                        <SelectValue placeholder={t('admin.deposit.selectSymbol')} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="BTC">BTC</SelectItem>
@@ -112,10 +114,10 @@ export function DepositDialog({ open, onOpenChange, user, onDeposit }: DepositDi
 
                         <DialogFooter>
                             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isSubmitting}>
-                                Annuler
+                                {t('admin.deposit.cancel')}
                             </Button>
                             <Button type="submit" disabled={isSubmitting}>
-                                {isSubmitting ? "Dépôt..." : "Déposer"}
+                                {isSubmitting ? t('admin.deposit.depositing') : t('admin.deposit.submit')}
                             </Button>
                         </DialogFooter>
                     </form>
