@@ -26,6 +26,29 @@ export interface RefreshTokenRequest {
     refresh_token: string;
 }
 
+export interface SignupRequest {
+    email: string;
+    password: string;
+    phone: string;
+    firstName: string;
+    lastName: string;
+    address?: {
+        address: string;
+        city: string;
+        country: string;
+        postal_code: string;
+    };
+    role?: "client" | "admin";
+}
+
+export interface SignupResponse {
+    success: boolean;
+    message: string;
+    data?: {
+        user: User;
+    };
+}
+
 export interface ApiError {
     message: string;
     status?: number;

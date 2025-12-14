@@ -128,6 +128,7 @@ export class User {
             .find({
                 role: "client",
             })
+            .sort({ created_at: -1 })
             .toArray();
     }
 

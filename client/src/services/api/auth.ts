@@ -1,9 +1,13 @@
 import { apiClient } from "./client";
-import type { LoginRequest, LoginResponse, GetMeResponse, RefreshTokenRequest, DashboardSummaryResponse } from "@/types/auth";
+import type { LoginRequest, LoginResponse, GetMeResponse, RefreshTokenRequest, DashboardSummaryResponse, SignupRequest, SignupResponse } from "@/types/auth";
 
 export const authService = {
     login: async (credentials: LoginRequest): Promise<LoginResponse> => {
         return apiClient.post<LoginResponse>("/auth/login", credentials);
+    },
+
+    signup: async (data: SignupRequest): Promise<SignupResponse> => {
+        return apiClient.post<SignupResponse>("/auth/signup", data);
     },
 
     getMe: async (): Promise<GetMeResponse> => {
