@@ -8,5 +8,9 @@ SettingsRouter.post(
   "/login-background",
   SettingsController.updateLoginBackground
 );
+SettingsRouter.delete(
+  "/login-background",
+  SettingsController.deleteLoginBackground
+);
 
 export { SettingsRouter };

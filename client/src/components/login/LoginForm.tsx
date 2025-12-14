@@ -32,9 +32,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card>
+            <Card className="border-none">
                 <CardHeader>
-                    <CardTitle>Connectez vous</CardTitle>
+                    <CardTitle className="text-2xl">Connectez vous</CardTitle>
                     <CardDescription>Entrez vos identifiants afin de vous connecter à votre compte.</CardDescription>
                 </CardHeader>
                 <CardContent>

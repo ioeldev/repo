@@ -287,7 +287,7 @@ const connectToBinance = (): Promise<void> => {
 
             // Handle ping frames - ws library auto-responds with pong
             binanceWs.on("ping", () => {
-                console.log("🏓 Received ping from Binance (ws library auto-responds)");
+                console.log("🏓 [BINANCE] Ping");
             });
         } catch (error) {
             reject(error);

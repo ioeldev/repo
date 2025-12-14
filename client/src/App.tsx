@@ -43,7 +43,7 @@ function App() {
                   path="deposits-withdraws"
                   element={<AdminDepositsWithdraws />}
                 />
-                <Route path="robots" element={<AdminRobots />} />
+                {/*<Route path="robots" element={<AdminRobots />} />*/}
                 <Route path="settings" element={<AdminSettings />} />
               </Route>
             </Route>

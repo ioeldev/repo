@@ -464,7 +464,7 @@ export function UsersTable({
     });
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 ">
             {selectedCount > 0 && (
                 <div className="flex items-center justify-between p-2 bg-muted rounded-md">
                     <span className="text-sm text-muted-foreground">
@@ -481,7 +481,7 @@ export function UsersTable({
                 </div>
             )}
 
-            <div className="rounded-md border">
+            <div className="rounded-md border overflow-auto">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

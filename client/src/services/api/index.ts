@@ -3,6 +3,7 @@ export { authService } from "./auth";
 export { usersService } from "./users";
 export { positionsService } from "./positions";
 export { binanceService } from "./binance";
+export { settingsService } from "./settings";
 export type {
     PnLHistoryDataPoint,
     PnLHistoryResponse,

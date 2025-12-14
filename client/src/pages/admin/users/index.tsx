@@ -20,7 +20,7 @@ export default function AdminUsers() {
     : 0;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 min-w-0 flex-1">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">{t("admin.pages.users.title")}</h1>
@@ -33,15 +33,15 @@ export default function AdminUsers() {
         </Button>
       </div>
 
-      <UsersTable
-        users={users}
-        pairs={pairs}
-        btcPrice={btcPrice}
-        eurPrice={eurPrice}
-        isLoading={isLoading}
-        onUserDeleted={refetch}
-        onUserUpdated={refetch}
-      />
+        <UsersTable
+          users={users}
+          pairs={pairs}
+          btcPrice={btcPrice}
+          eurPrice={eurPrice}
+          isLoading={isLoading}
+          onUserDeleted={refetch}
+          onUserUpdated={refetch}
+        />
 
       <CreateUserDialog
         open={createUserDialogOpen}

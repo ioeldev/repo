@@ -38,3 +38,15 @@ export const updateLoginBackground = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
+export const deleteLoginBackground = async (req: Request, res: Response) => {
+  try {
+    await Settings.collection.deleteOne({ key: SettingsKeys.LOGIN_BACKGROUND });
+    return res.json({
+      success: true,
+      message: "Login background deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};

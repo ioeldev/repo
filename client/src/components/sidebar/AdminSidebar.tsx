@@ -5,7 +5,6 @@ import {
   LayoutDashboard,
   Users,
   Settings,
-  Zap,
   TrendingUp,
   ArrowLeftRight,
 } from "lucide-react";
@@ -47,11 +46,6 @@ export function AdminSidebar({
       title: t("admin.sidebar.depositsWithdraws"),
       url: "/admin/deposits-withdraws",
       icon: ArrowLeftRight,
-    },
-    {
-      title: t("admin.sidebar.robots"),
-      url: "/admin/robots",
-      icon: Zap,
     },
     {
       title: t("admin.sidebar.settings"),
