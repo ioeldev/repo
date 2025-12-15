@@ -72,10 +72,11 @@ export function UserHeader() {
               to="/"
               className="flex items-center gap-2 font-bold text-lg shrink-0"
             >
-              <div className="w-8 h-8 rounded bg-primary flex items-center justify-center text-primary-foreground text-sm font-bold shadow-sm">
-                Y
-              </div>
-              <span className="hidden sm:inline text-foreground">{t("navigation.yoda")}</span>
+              <img
+                src={theme === "dark" ? "/logo.dark.svg" : "/logo.light.svg"}
+                alt="logo"
+                className="w-auto h-4"
+              />
             </Link>
 
             {/* Desktop Navigation */}

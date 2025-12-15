@@ -38,7 +38,7 @@ export const BinanceWebSocketProvider: React.FC<BinanceWebSocketProviderProps> =
 
     // Get WebSocket URL
     const socketUrl = `${window.location.protocol === "https:" ? "wss:" : "ws:"}//${
-        import.meta.env.VITE_WS_HOST || "localhost:3334"
+        import.meta.env.VITE_WS_HOST || "localhost:3333"
     }`;
 
     // Use the react-use-websocket hook

@@ -35,7 +35,7 @@ export const LiquidationWebSocketProvider: React.FC<LiquidationWebSocketProvider
 
     // Get WebSocket URL for liquidation server
     const socketUrl = `${window.location.protocol === "https:" ? "wss:" : "ws:"}//${
-        import.meta.env.VITE_LIQUIDATION_WS_HOST || import.meta.env.VITE_LIQUIDATION_WS_URL || "localhost:3335"
+        import.meta.env.VITE_LIQUIDATION_WS_HOST || import.meta.env.VITE_LIQUIDATION_WS_URL || "localhost:3334"
     }`;
 
     // Use the react-use-websocket hook

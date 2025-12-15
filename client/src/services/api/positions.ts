@@ -163,11 +163,11 @@ export interface DeletePositionResponse {
 
 export const positionsService = {
     getPnLHistory: async (): Promise<PnLHistoryResponse> => {
-        return apiClient.get<PnLHistoryResponse>("/positions/v2/pnl-history");
+        return apiClient.get<PnLHistoryResponse>("/positions/pnl-history");
     },
 
     getStats: async (): Promise<PositionStatsResponse> => {
-        return apiClient.get<PositionStatsResponse>("/positions/v2/stats");
+        return apiClient.get<PositionStatsResponse>("/positions/stats");
     },
 
     getMyPositions: async (
@@ -181,23 +181,23 @@ export const positionsService = {
         if (status) {
             params.append("status", status);
         }
-        return apiClient.get<PositionsResponse>(`/positions/v2?${params.toString()}`);
+        return apiClient.get<PositionsResponse>(`/positions?${params.toString()}`);
     },
 
     createPosition: async (payload: CreatePositionPayload): Promise<CreatePositionResponse> => {
-        return apiClient.post<CreatePositionResponse>("/positions/v2", payload);
+        return apiClient.post<CreatePositionResponse>("/positions", payload);
     },
 
     adminCreatePosition: async (payload: AdminCreatePositionPayload): Promise<CreatePositionResponse> => {
-        return apiClient.post<CreatePositionResponse>("/positions/v2/admin", payload);
+        return apiClient.post<CreatePositionResponse>("/positions/admin", payload);
     },
 
     adminCreatePositions: async (payload: CreatePositionPayload[]): Promise<CreatePositionResponse[]> => {
-        return apiClient.post<CreatePositionResponse[]>("/positions/v2/admin/batch", payload);
+        return apiClient.post<CreatePositionResponse[]>("/positions/admin/batch", payload);
     },
 
     closePosition: async (payload: ClosePositionPayload): Promise<ClosePositionResponse> => {
-        return apiClient.post<ClosePositionResponse>("/positions/v2/close", payload);
+        return apiClient.post<ClosePositionResponse>("/positions/close", payload);
     },
 
     // Admin endpoints
@@ -214,19 +214,19 @@ export const positionsService = {
             });
         }
 
-        return apiClient.get<AdminPositionsResponse>(`/positions/v2/admin?${queryParams.toString()}`);
+        return apiClient.get<AdminPositionsResponse>(`/positions/admin?${queryParams.toString()}`);
     },
 
     updateAdminPosition: async (positionId: string, payload: UpdatePositionPayload): Promise<Position> => {
-        return apiClient.put<Position>(`/positions/v2/admin/${positionId}`, payload);
+        return apiClient.put<Position>(`/positions/admin/${positionId}`, payload);
     },
 
     deleteAdminPosition: async (positionId: string): Promise<DeletePositionResponse> => {
-        return apiClient.delete<DeletePositionResponse>(`/positions/v2/admin/${positionId}`);
+        return apiClient.delete<DeletePositionResponse>(`/positions/admin/${positionId}`);
     },
 
     closeAdminPosition: async (positionId: string, exitPrice: number): Promise<ClosePositionResponse> => {
-        return apiClient.post<ClosePositionResponse>(`/positions/v2/admin/${positionId}/close`, {
+        return apiClient.post<ClosePositionResponse>(`/positions/admin/${positionId}/close`, {
             exit_price: exitPrice,
             exit_time: new Date().toISOString(),
         });

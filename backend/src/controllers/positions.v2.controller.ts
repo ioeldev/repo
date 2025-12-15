@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Position, PositionsModel } from "../models/positions.model";
 import { ObjectId } from "mongodb";
 import { User } from "../models/users.model";
-import { invokeEmailSender } from "../utils/lambda_invokes";
+import { sendEmail } from "../services/email.service";
 import {
   getOpenPositionEmailContent,
   getClosePositionEmailContent,
@@ -120,7 +120,7 @@ const sendPositionEmail = async (
       subject = "Position clôturée";
     }
 
-    await invokeEmailSender({
+    await sendEmail({
       to: user.email,
       subject,
       html: emailContent,

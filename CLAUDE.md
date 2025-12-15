@@ -23,7 +23,7 @@ Both projects use **pnpm** as the package manager.
 - **Framework**: Express.js
 - **Database**: MongoDB (native driver, no ORM)
 - **Deployment**: AWS Lambda via Serverless Framework
-- **Real-time**: WebSocket server (port 3334)
+- **Real-time**: WebSocket servers
 - **Authentication**: JWT with token versioning
 
 ### Key Components
@@ -35,7 +35,6 @@ Both projects use **pnpm** as the package manager.
 
 **Routes** (`src/routes/`)
 - Organized by domain (users, positions, auth, mexc, binance, robots, etc.)
-- Two position APIs: `/positions` (v1) and `/positions/v2`
 
 **Middlewares** (`src/middlewares.ts`)
 - `auth`: Validates JWT and attaches user to request
@@ -47,7 +46,6 @@ Both projects use **pnpm** as the package manager.
 
 **Lambda Functions** (`src/lambdas/`)
 - `robotsRewards`: Scheduled daily at 11 PM UTC (cron job)
-- `emailSender`: Email notifications handler
 
 ### Development Commands
 
@@ -193,6 +191,5 @@ Frontend connects via context providers and distributes data to components.
 ### Common Patterns
 - **Error Handling**: Express routes should catch errors and return appropriate status codes
 - **Authorization**: Use `auth` middleware for authenticated routes, `onlyAdmin` for admin-only
-- **API Versioning**: Maintain backward compatibility or create v2 endpoints (like positions/v2)
 - **Component Styling**: Prefer Tailwind utilities over custom CSS
 - **Type Safety**: Define TypeScript types for all data structures

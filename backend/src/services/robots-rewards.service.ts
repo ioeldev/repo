@@ -1,6 +1,6 @@
-import { Robot } from "../../models/robots.model";
-import { RobotsEarnings } from "../../models/robots_earnings.model";
-import { User, UsersModel } from "../../models/users.model";
+import { Robot } from "../models/robots.model";
+import { RobotsEarnings } from "../models/robots_earnings.model";
+import { User, UsersModel } from "../models/users.model";
 import moment from "moment-timezone";
 
 export const checkRobotsRewards = async (user: UsersModel) => {
@@ -107,6 +107,6 @@ export const processRobotsRewards = async () => {
 
     const successCount = results.filter(r => r.success).length;
     console.log(`Finished processing robot rewards. Success: ${successCount}/${users.length}`);
-    
+
     return results;
 };

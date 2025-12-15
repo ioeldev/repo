@@ -10,7 +10,7 @@ import { Position, PositionsModel } from "../models/positions.model";
 import { User } from "../models/users.model";
 import { ObjectId } from "mongodb";
 import { calculateUnrealizedPnl } from "../utils/pnl";
-import { invokeEmailSender } from "../utils/lambda_invokes";
+import { sendEmail } from "./email.service";
 import { getClosePositionEmailContent, getLiquidatePositionEmailContent } from "../utils/email_content";
 
 const BINANCE_WS_URL = "wss://stream.binance.com:9443/ws";
@@ -442,7 +442,7 @@ class LiquidationMonitorService {
                 ? getLiquidatePositionEmailContent(emailParams)
                 : getClosePositionEmailContent(emailParams);
 
-            await invokeEmailSender({
+            await sendEmail({
                 to: user.email,
                 subject: isLiquidation ? "Position liquidée" : "Position clôturée",
                 html: emailContent,

@@ -23,7 +23,7 @@ export const ImpersonationBanner = () => {
     }
 
     return (
-        <div className="bg-yellow-500 text-black px-4 py-2 flex items-center justify-between shadow-lg z-50">
+        <div className="bg-card px-4 py-2 flex items-center justify-between shadow-lg z-50">
             <div className="flex items-center gap-2">
                 <AlertCircle className="h-5 w-5" />
                 <span className="font-medium">
@@ -35,7 +35,6 @@ export const ImpersonationBanner = () => {
                 variant="ghost"
                 size="sm"
                 onClick={exitImpersonation}
-                className="text-black hover:bg-yellow-600 flex items-center gap-1"
             >
                 <X className="h-4 w-4" />
                 {t("user.impersonation.exitImpersonation")}

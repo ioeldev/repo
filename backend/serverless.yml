@@ -33,18 +33,6 @@ functions:
                   cors: true
         memorySize: 256
         timeout: 15
-
-    robotsRewards:
-        handler: src/lambdas/robots_rewards/index.handler
-        events:
-            - schedule: cron(0 23 * * ? *) # Run daily at 11 PM
-        memorySize: 256
-        timeout: 10
-
-    emailSender:
-        handler: src/lambdas/email_sender/index.handler
-        memorySize: 256
-        timeout: 15
 package:
     patterns:
         - '!./node_modules/.pnpm/@aws-sdk/**'

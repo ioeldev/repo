@@ -3,3 +3,11 @@ node_modules
 dist
 
 .DS_Store
+
+.claude
+
+.env
+
+.env*
+
+CLAUDE.md

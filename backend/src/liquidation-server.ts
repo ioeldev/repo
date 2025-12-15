@@ -7,7 +7,7 @@ import WebSocket from "ws";
 import { connect } from "./config/db";
 import { liquidationMonitor } from "./services/liquidation-monitor.service";
 
-const LIQUIDATION_WS_PORT = parseInt(process.env.LIQUIDATION_WS_PORT || "3335");
+const LIQUIDATION_WS_PORT = parseInt(process.env.LIQUIDATION_WS_PORT || "3334");
 
 interface PositionUpdate {
     type: "positionUpdate";
@@ -99,4 +99,3 @@ startLiquidationServer().catch((error) => {
     console.error("❌ Failed to start liquidation server:", error);
     process.exit(1);
 });
-
