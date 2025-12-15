@@ -5,10 +5,10 @@ import { useTheme } from "../theme-provider";
 export function TradingChart() {
     const { selectedPair } = useTradingContext();
     const container = useRef<HTMLDivElement>(null);
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
 
     // Compute background color based on current theme
-    const backgroundColor = theme === "light" ? "#ffffff" : "#181a21";
+    const backgroundColor = resolvedTheme === "light" ? "#ffffff" : "#181a21";
 
     useEffect(() => {
         if (!selectedPair) return;
@@ -37,7 +37,7 @@ export function TradingChart() {
           "save_image": true,
           "style": "1",
           "symbol": "BINANCE:${selectedPair.pair}",
-          "theme": "${theme}",
+          "theme": "${resolvedTheme}",
           "timezone": "Etc/UTC",
           "backgroundColor": "${backgroundColor}",
           "gridColor": "${backgroundColor}",
@@ -51,7 +51,7 @@ export function TradingChart() {
           ]
         }`;
         container.current?.appendChild(script);
-    }, [selectedPair, backgroundColor, theme]);
+    }, [selectedPair, backgroundColor, resolvedTheme]);
 
     return (
         <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }}>

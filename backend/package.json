@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "add-user": "ts-node src/scripts/addUser.ts",
     "build": "rm -rf .build && tsc && tsc-alias && pnpm run postbuild",
     "postbuild": "copyfiles -a \"src/**/*\" \"*.json\" dist -e \"**/*.js\" -e \"**/*.ts\"",
     "start": "node dist/src/api-server.js",
