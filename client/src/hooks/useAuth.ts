@@ -4,7 +4,6 @@ import {
   type LoginRequest,
   type LoginResponse,
   type SignupRequest,
-  type SignupResponse,
 } from "@/services/api";
 import { useNavigate } from "react-router";
 

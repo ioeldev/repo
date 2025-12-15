@@ -29,6 +29,8 @@ export type {
     // Auth
     LoginRequest,
     LoginResponse,
+    SignupRequest,
+    SignupResponse,
     GetMeResponse,
     RefreshTokenRequest,
     Token,

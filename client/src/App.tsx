@@ -9,7 +9,7 @@ import UserSettings from "./pages/user/settings";
 import AdminUsers from "./pages/admin/users";
 import AdminPositions from "./pages/admin/positions";
 import AdminDepositsWithdraws from "./pages/admin/deposits-withdraws";
-import AdminRobots from "./pages/admin/robots";
+// import AdminRobots from "./pages/admin/robots";
 import AdminSettings from "./pages/admin/settings";
 import Login from "./pages/login";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
